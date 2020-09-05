@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waifu TCG Quickstart Guide</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|IBM+Plex+Mono:400,600&amp;subset=latin-ext" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<h1>Waifu TCG Quickstart</h1>
+<p>
+Getting into the Waifu TCG is easier than you think!<br>
+Let's work through the basics with an example.
+Let's get you a starting hand and some points to waste.
+</p>
+
+<h2>Your First Cards</h2>
+
+<p>
+To begin, type this in Twitch chat: <kbd>!redeem NewcomerPack</kbd>
+You should see this:
+</p>
+
+<div class="chatbox">
+  <p>
+  <img src="mod.png" alt="Moderator" aria-label="Moderator badge">&nbsp;<span class="chatuser">Nepnepbot</span>: <i>(You)</i> -&gt; Successfully redeemed the token NewcomerPack, added the following to your account -&gt; 250&nbsp;points and a free booster: https://waifus.de/booster?user=<i>(You)</i>
+  </p>
+</div>
+
+<aside>
+<p>
+If Nepnepbot says &ldquo;you have already claimed this token!&rdquo;,
+type <kbd>!booster buy standard</kbd> instead.<br>
+If you get no response at all, make sure you're typing in a twitch chat that has Nepnepbot.
+</p>
+</aside>
+
+<p>
+Now click the link that Nepnepbot gave you;
+it shows you the contents of your booster pack that you just got for free from the <kbd>!redeem</kbd> command.
+You should see something like this:
+</p>
+
+<iframe src="booster.html"></iframe>
+
+<p>
+For every card you want to keep, first click the checkbox above &ldquo;Keep?&rdquo;.
+It is completely your choice whether you do or don't want to keep cards from boosters,
+but we will need at least one card later on, so please select at least one card.<br>
+If nothing happens when you click the checkbox, remember to do that on <em>your booster pack</em>, not the example above.
+</p>
+
+<p>
+Selecting the checkboxes does not commit to anything yet, however.
+At the bottom of the page, you should see a little input box that starts with <kbd>!booster</kbd>.
+That is the command you must copy back into the chat to actually keep the cards.
+</p>
+
+<aside>
+  <p>
+  If you're curious about the k and d in the command:
+  k means for keep, d means disenchant.
+  </p>
+</aside>
+
+<p>
+If you did everything right, you should see something like this (the numbers will vary because every booster pack has different cards):
+</p>
+
+<div class="chatbox">
+  <p>
+  <img src="mod.png" alt="Moderator" aria-label="Moderator badge">&nbsp;<span class="chatuser">Nepnepbot</span>: You take your booster pack and: keep 7035; disenchant the rest; netting 310 points.
+  </p>
+</div>
+
+<p>
+The numbers after &ldquo;and: keep&rdquo; refer to the <em>waifu ID</em>.
+That's the little number you see on the bottom left of every card.
+</p>
+
+<p>
+You can buy booster packs with <kbd>!booster buy <i>type</i></kbd>.
+You can get a list of booster packs and their prices at any point with <kbd>!booster list</kbd>.
+but the following ones are guaranteed to always exist:
+</p>
+
+<table>
+  <tr><th>Booster Type</th><th>Cost</th></tr>
+  <tr><td>standard</td><td>250</td></tr>
+  <tr><td>jumbo</td><td>625</td></tr>
+  <tr><td>super</td><td>1000</td></tr>
+  <tr><td>premium</td><td>3000</td></tr>
+  <tr><td>ultimate</td><td>5000</td></tr>
+</table>
+
+<p>
+You got 250&nbsp;points from the NewcomerPack above.
+If you feel like it, you can buy a standard booster with those points.
+</p>
+
+<aside>
+  <p>
+  Generally, the more expensive a pack, the less cards it contains, but the higher the rarities will be on average.
+  Jumbos are an exception to this. They just contain more cards at the same odds as a standard pack.
+  </p>
+</aside>
+
+<p>
+If you've tried to keep all the cards from the packs until now,
+you will see this:
+</p>
+
+<div class="chatbox">
+  <p>
+  <img src="mod.png" alt="Moderator" aria-label="Moderator badge">&nbsp;<span class="chatuser">Nepnepbot</span>: You can't keep that many waifus! !disenchant some!
+  </p>
+</div>
+
+<p>
+You can only keep a certain amount of cards.
+When doing <kbd>!checkhand</kbd>, you mave have noticed that you can only have &ldquo;7 total spaces&rdquo;.
+If you run into this, you'll have to decide which cards to keep to not go over your hand space limit or to disenchant (get rid of) some cards in your hand.
+</p>
+
+<p>
+To disenchant a card, use <kbd>!de <i>ID</i></kbd>, where ID is the waifu ID.
+Remember, the waifu ID is the little ID in the bottom left for each card.
+</p>
+
+<p>
+Over time, your hand space will expand &ndash; the more booster packs you buy, the more space you get.
+Yes, the <kbd>!redeem</kbd> commands you've been doing until now count towards it.
+You can check your progress to the next hand space on your profile (<kbd>!profile</kbd>) or like this: <kbd>!upgrade</kbd>
+</p>
+
+<div class="chatbox">
+  <p>
+  <img src="mod.png" alt="Moderator" aria-label="Moderator badge">&nbsp;<span class="chatuser">Nepnepbot</span>: <i>(You)</i>, you currently have 7&nbsp;slots from pack spending. For space #8, spend 375 more points or use !upgrade buy for 187 points.
+  </p>
+</div>
+
+<aside>
+  <p>
+  <kbd>!upgrade buy</kbd> is <em>always</em> worse than spending points on packs instead.
+  It's only meant to be used if you're very close to your next space and immediately need it.
+  The amount of points you get from cards in packs that you disenchant ends up coming cheaper than buying the hand space upgrade outright.
+  </p>
+</aside>
+
+<p>
+This is the final redeem code, which will give you enough points to get your eighth hand space if you don't already have it:
+<kbd>!redeem 50kusers</kbd>
+</p>
+
+<p>
+Keep opening boosters until you see this:
+</p>
+
+<div class="chatbox">
+  <p>
+  <img src="mod.png" alt="Moderator" aria-label="Moderator badge">&nbsp;<span class="chatuser">Nepnepbot</span>: <i>(You)</i>, you just got a new hand space from booster spending! <img src="naroYay.png" alt="naroYay">
+  </p>
+</div>
+
+<p>
+You're still with me?
+I'll give you another redeem code to help expand your hand, then:
+<kbd>!redeem TheSafeIsLeaking</kbd>.
+You already know what to do.
+</p>
+
+<h2>Hands</h2>
+
+<p>
+So now that you have cards, you also have a hand!
+Congratulations!
+Type <kbd>!checkhand</kbd>.
+You should see something like this:
+</p>
+
+<div class="chatbox">
+  <p>
+  <img src="mod.png" alt="Moderator" aria-label="Moderator badge">&nbsp;<span class="chatuser">Nepnepbot</span>: <i>(You)</i>, you have 2 waifus, 0 bounties and 7 total spaces. https://waifus.de/hand?user=<i>(You)</i>
+  </p>
+</div>
+
+<p>
+Click the link to see your hand.
+These are the cards you've kept until now.
+</p>
+
+<p>
+You're not the only player of the TCG.
+Other people have been playing for a while, too.
+Let's take a look at the hand for, say, Marenthyu.
+He's the creator of the TCG, so let's see what his hand looks like.
+</p>
+
+<p>
+On the page where you see your hand, you should also see a search box on the right of the black navigation bar at the top, with a button that says &ldquo;Check User&rdquo; right next to it.
+Input <kbd>Marenthyu</kbd> in the search box, then click &ldquo;Check User&rdquo;.
+</p>
+
+<aside>
+  <p>
+  On mobile, you may have to manually scroll to the black navigation bar at the top.<br>
+  If you see &ldquo;404 - This user doesn't exist or has no open booster.&rdquo; or the profile, click &ldquo;Hand&rdquo; on the navigation bar.
+  </p>
+</aside>
+
+<p>
+That's a lot of cards!
+But more importantly, you may notice that many of the cards
+have little stars (★) in the top right corner.
+Those cards are <em>promoted</em>.
+</p>
+
+<h2>Promotion</h2>
+
+<p>
+Promotion increases a card's rarity; one star for every rarity the card went up.
+You've seen rarities on the bottom right of the cards.
+Promotion happens automatically when you get two of the same card in your hand.
+Two cards are the same when they have the same waifu ID and the same rarity... Except for Mythical cards, of which you need three to promote to God.
+It sounds complex, but it'll make sense when you actually do it.
+You can't promote beyond God.
+Here's a list for your reference:
+</p>
+
+<table>
+  <tr><th>Rarity Name</th><th>Disenchant Value</th></tr>
+  <tr><td>Common</td><td>5</td></tr>
+  <tr><td>Uncommon</td><td>10</td></tr>
+  <tr><td>Rare</td><td>50</td></tr>
+  <tr><td>Super</td><td>250</td></tr>
+  <tr><td>Ultra</td><td>1000</td></tr>
+  <tr><td>Legendary</td><td>2500</td></tr>
+  <tr><td>Mythical</td><td>6000</td></tr>
+  <tr><td>God</td><td>15,000</td></tr>
+</table>
+
+<p>
+&ldquo;Drop Limit&rdquo; refers to how many cards of this rarity can co-exist.
+This includes promoted cards, so that only one person can hold a card promoted to God at a time &ndash; the others are stuck at Mythical.
+</p>
+
+<h2>Bounties</h2>
+
+<p>
+At this point you may be wondering, with over 10,000&nbsp;waifus in the database, how would anyone promote this many cards?
+The answer lies in <em>bounties</em>.
+Bounties are a way to obtain cards you want:
+Whenever someone tries to disenchant a waifu you've got a bounty for, the card will go to you instead of being disenchanted.
+For example, to bounty [1][Common] Trash from trash, you would use <kbd>!bounty 1 50</kbd>.
+1 being the waifu ID, 50 being the points amount you bounty the card for.
+</p>
+
+<p>
+You have to specify an amount to bounty a card for because others may also bounty on the card.
+Whoever has the highest amount gets the card.
+Bounties can go over the maximum bounty, but only if an existing maximum bounty has already been placed.
+For the reference, these are the prices to bounty cards for:
+</p>
+
+<table>
+  <tr><th>Rarity Name</th><th>Minimum Bounty</th><th>Maximum Bounty</th></tr>
+  <tr><td>Common</td><td>50</td><td>100</td></tr>
+  <tr><td>Uncommon</td><td>75</td><td>250</td></tr>
+  <tr><td>Rare</td><td>100</td><td>500</td></tr>
+  <tr><td>Super</td><td>400</td><td>1000</td></tr>
+  <tr><td>Ultra</td><td>1250</td><td>2400</td></tr>
+  <tr><td>Legendary</td><td>3000</td><td>6000</td></tr>
+  <tr><td>Mythical</td><td>7000</td><td>20,000</td></tr>
+  <tr><td>God</td><td>16,000</td><td>50,000</td></tr>
+</table>
+
+<p>
+Bounties take hand space while active.
+When they fill, the cards will occupy the bounty slot and the bounty will be removed;
+for promoting cards, you thus need to create multiple bounties.
+</p>
+
+<h2>That's All</h2>
+
+<p>
+You now know the basics of the Waifu TCG &ndash; just enough to be dangerous.
+If you're not tired of learning about the Waifu TCG yet, continue reading the <a href="https://waifus.de/help">main help documentation</a> (which you can also get through <kbd>!help</kbd>).
+</p>
+
+</body>
+</html>
+

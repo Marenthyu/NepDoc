@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NepBot: Admin Commands Reference</title>
+  <!-- likely already cached because waifus.de/checkhand -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+        integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+<style type="text/css">h1.card-header{font-size:20px;font-weight:600}code{white-space:nowrap}p:nth-child(2n){background-color:#f0f0f0;margin:0}.placeholder{font-weight:600}.card{margin-bottom:14px}</style>
+</head>
+<body>
+<div class="container">
+<h1>General notes</h1>
+<ol>
+  <li>Admins bypass the information command rate limit.</li>
+  <li>Admins can use all bet commands a streamer can use, refer to the <a href="https://waifus.de/help">regular command reference for them</a>.</li>
+  <li>The commands in the &ldquo;Debugging&rdquo; section can only be used while debug mode is enabled.</li>
+</ol>
+<hr>
+
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <h1 class="card-header">Bets</h1>
+      <div class="card-body">
+        <div class="card-text">
+          <p><code>!bet results</code> &ndash; show bet results</p>
+          <p><code>!bet payout</code> &ndash; pay out bet</p>
+          <p><code>!bet changetime <span class="placeholder">time</span></code> &ndash; change the bet time</p>
+          <p><code>!bet forcereset</code> &ndash; reset the bet to &ldquo;open&rdquo; status (usage unlimited in others&rsquo; channels)</p>
+          <p><code>!bet forceenter <span class="placeholder">user</span> <span class="placeholder">time</span></code> &ndash; enter <span class="placeholder">user</span> into a running bet</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <h1 class="card-header">Godimages</h1>
+      <div class="card-body">
+        <div class="card-text">
+          <p><code>!godimage queue</code> &ndash; show pending godimage requests</p>
+          <p><code>!godimage check <span class="placeholder">ID</span></code> &ndash; check request for waifu</p>
+          <p><code>!godimage acceptsingle <span class="placeholder">ID</span></code> &ndash; accept request for waifu (only affects their card)</p>
+          <!-- dead
+            <p><code>!godimage acceptglobal <span class="placeholder">ID</span></code> &ndash; accept request for waifu (affects everybody's cards)</p>
+          -->
+          <p><code>!godimage reject <span class="placeholder">ID</span> <span class="placeholder">reason</span></code> &ndash; reject request; reason is required</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <h1 class="card-header">Set badge images</h1>
+      <div class="card-body">
+        <div class="card-text">
+          <p><code>!setbadge queue</code> &ndash; show pending setimage requests</p>
+          <p><code>!setbadge check <span class="placeholder">ID</span></code> &ndash; check request for set</p>
+          <p><code>!setbadge accept <span class="placeholder">ID</span></code> &ndash; accept request for set</p>
+          <p><code>!setbadge reject <span class="placeholder">ID</span> <span class="placeholder">reason</span></code> &ndash; reject request; reason is required</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <h1 class="card-header">Miscellaneous</h1>
+      <div class="card-body">
+        <div class="card-text">
+          <p><code>!announce <span class="placeholder">message</span></code> &ndash; send message to all channels the bot has joined</p>
+          <p><code>!givefreepack <span class="placeholder">user</span> <span class="placeholder">booster</span> [<span class="placeholder">amount</span>]</code> &ndash; give one or more free packs</p>
+          <p><code>!raritychange <span class="placeholder">ID</span> <span class="placeholder">rarity</span></code> &ndash; change rarity of a card</p>
+          <!-- dead commands
+          <p><code>!autogacha</code> &ndash; </p>
+          <p><code>!changepromos</code> &ndash; </p>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <h1 class="card-header">Bot Management</h1>
+      <div class="card-body">
+        <div class="card-text">
+          <p><code>!nepjoin <span class="placeholder">channel</span></code> &ndash; make the bot join the given channel (do not specify #)</p>
+          <p><code>!nepleave <span class="placeholder">channel</span></code> &ndash; make bot leave the given channel (do not specify #)</p>
+          <p><code>!reload</code> &ndash; reload bot configuration</p>
+          <p><code>!quit</code> &ndash; shut down bot</p>
+          <p><code>!import <span class="placeholder">URL</span></code> &ndash; import cards from given URL</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <h1 class="card-header">Giveaways</h1>
+      <div class="card-body">
+        <div class="card-text">
+          <p><code>!giveaway open</code> &ndash; open a new giveaway</p>
+          <p><code>!giveaway pick <span class="placeholder">winners</span></code> &ndash; pick winners, at least 1</p>
+          <p><code>!giveaway close</code> &ndash; finish the giveaway</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-4">
+    <div class="card">
+      <h1 class="card-header">Raffles</h1>
+      <div class="card-body">
+        <div class="card-text">
+          <p><code>!raffle open</code> &ndash; open a new raffle</p>
+          <p><code>!raffle close</code> &ndash; close raffle entries to start drawing</p>
+          <p><code>!raffle drawgrand</code> &ndash; draw grand prize winner</p>
+          <p><code>!raffle draw <span class="placeholder">winners</span></code> &ndash; draw winners</p>
+          <p><code>!raffle complete</code> &ndash; finish the raffle</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="card">
+      <h1 class="card-header">Debugging</h1>
+      <div class="card-body">
+        <div class="card-text">
+          <p><code>!as <span class="placeholder">user</span> <span class="placeholder">command</span></code> &ndash; execute command as another user</p>
+          <p><code>!debug</code> &ndash; changes title and game on marathon channel to testing values</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
+
