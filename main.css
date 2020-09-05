@@ -1,0 +1,418 @@
+/* web fonts */
+
+@font-face{
+    font-family: 'Source Code Pro';
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('fonts/code/EOT/SourceCodePro-Regular.eot') format('embedded-opentype'),
+         url('fonts/code/WOFF2/TTF/SourceCodePro-Regular.ttf.woff2') format('woff2'),
+         url('fonts/code/WOFF/OTF/SourceCodePro-Regular.otf.woff') format('woff'),
+         url('fonts/code/OTF/SourceCodePro-Regular.otf') format('opentype'),
+         url('fonts/code/TTF/SourceCodePro-Regular.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Source Code Pro';
+    font-weight: 400;
+    font-style: italic;
+    font-stretch: normal;
+    src: url('fonts/code/EOT/SourceCodePro-It.eot') format('embedded-opentype'),
+         url('fonts/code/WOFF2/TTF/SourceCodePro-It.ttf.woff2') format('woff2'),
+         url('fonts/code/WOFF/OTF/SourceCodePro-It.otf.woff') format('woff'),
+         url('fonts/code/OTF/SourceCodePro-It.otf') format('opentype'),
+         url('fonts/code/TTF/SourceCodePro-It.ttf') format('truetype');
+}
+
+@font-face{
+    font-family: 'Source Serif Pro';
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('fonts/serif/WOFF2/TTF/SourceSerifPro-Regular.ttf.woff2') format('woff2'),
+         url('fonts/serif/WOFF/OTF/SourceSerifPro-Regular.otf.woff') format('woff'),
+         url('fonts/serif/OTF/SourceSerifPro-Regular.otf') format('opentype'),
+         url('fonts/serif/TTF/SourceSerifPro-Regular.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Source Serif Pro';
+    font-weight: 400;
+    font-style: italic;
+    font-stretch: normal;
+    src: url('fonts/serif/WOFF2/TTF/SourceSerifPro-It.ttf.woff2') format('woff2'),
+         url('fonts/serif/WOFF/OTF/SourceSerifPro-It.otf.woff') format('woff'),
+         url('fonts/serif/OTF/SourceSerifPro-It.otf') format('opentype'),
+         url('fonts/serif/TTF/SourceSerifPro-It.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Source Serif Pro';
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('fonts/serif/WOFF2/TTF/SourceSerifPro-Bold.ttf.woff2') format('woff2'),
+         url('fonts/serif/WOFF/OTF/SourceSerifPro-Bold.otf.woff') format('woff'),
+         url('fonts/serif/OTF/SourceSerifPro-Bold.otf') format('opentype'),
+         url('fonts/serif/TTF/SourceSerifPro-Bold.ttf') format('truetype');
+}
+
+/* actual styling */
+
+body {
+  font-size: 18px;
+  line-height: 1.5;
+  background-color: #f8f8f8;
+  color: #000;
+  text-rendering: optimizeLegibility;
+  font-family: 'Source Serif Pro', 'Georgia', serif;
+  counter-reset: ih1 ih2 ih3 ih4;
+}
+
+aside {
+  font-size: 80%;
+  color: #222;
+}
+
+code, kbd, pre {
+  font-family: 'Source Code Pro';
+  font-size: 75%;
+}
+
+kbd {
+  background: #eee;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  padding: 3px;
+}
+
+a:link, a:visited {
+  border-bottom: thin dotted;
+  color: inherit;
+  font: inherit;
+  text-decoration: inherit;
+}
+
+table {
+  margin: 1em auto;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+th {
+  text-align: left;
+}
+td, th {
+  padding-right: 1em;
+}
+
+h1, h2, h3, h4 {
+  padding-left: 3em;
+  font-size: 120%;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+}
+h1 {
+  font-size: 120%;
+}
+h2 {
+  font-size: 115%;
+}
+h3 {
+  font-size: 110%;
+}
+h4 {
+  font-size: 105%;
+}
+h1 {
+  margin-top: 4em;
+}
+h2, h3, h4 {
+  margin-top: 2em;
+}
+h3, h4 {
+  font-size: 110%;
+}
+h1 {
+  counter-reset: ih2 ih3 ih4;
+}
+h2 {
+  counter-reset: ih3 ih4;
+}
+h3 {
+  counter-reset: ih4;
+}
+h1:before {
+  counter-increment: ih1;
+  content: counter(ih1);
+  position: relative;
+  left: -3em;
+}
+h2:before {
+  counter-increment: ih2;
+  content: counter(ih1) "." counter(ih2);
+  position: relative;
+  left: -3em;
+}
+h3:before {
+  counter-increment: ih3;
+  content: counter(ih1) "." counter(ih2) "." counter(ih3);
+  position: relative;
+  left: -3em;
+}
+h4:before {
+  counter-increment: ih4;
+  content: counter(ih1) "." counter(ih2) "." counter(ih3) "." counter(ih4);
+  position: relative;
+  left: -3em;
+}
+
+li {
+  padding-left: 1.5em;
+  margin-left: -1em;
+}
+
+.title {
+  font-size: 4em;
+  line-height: 2.8;
+  text-align: center;
+  margin-bottom: 0;
+}
+.author {
+  font-variant: small-caps;
+  text-align: center;
+  padding-bottom: 3em;
+}
+.purpose, .lastupdate {
+  font-size: 90%;
+  width: 80%;
+  margin: 1em auto;
+}
+
+.pn {
+  left: -4em;
+  display: block;
+  float: left;
+  position: relative;
+  margin-left: 0;
+  height: 0;
+  font-size: 75%;
+}
+
+nav {
+  font-size: 80%;
+  padding-top: 4em;
+}
+nav ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* 4*18px (base font size) * 576 (max width, approx. 64ch) */
+@media (max-width: 648px) {
+  .pn {
+    position: static;
+    left: 0;
+    display: inline;
+    height: 75%;
+    padding-right: 1em;
+  }
+}
+main p {
+  text-indent: 0;
+  margin: 0;
+  margin-bottom: 1em;
+}
+header, main {
+  margin: 0 auto;
+  max-width: 576px;
+  max-width: 64ch;
+}
+table {
+  border-collapse: collapse;
+}
+
+.note {
+  border: 1px solid #ccc;
+  background-color: #eee;
+  padding: 1em;
+}
+
+.ra {
+  text-align: right;
+}
+
+.dead {
+  background-color: #ddd;
+}
+
+#packtable td {
+  padding-bottom: 1em;
+}
+
+@media(prefers-color-scheme: dark) {
+  body {
+    background-color: #363636;
+    color: #cfcdd4;
+  }
+
+  kbd {
+    background: #313131;
+    border: 1px solid #5a585c;
+    border-radius: .25rem;
+    padding: 3px;
+  }
+
+  aside {
+    color: #bbb;
+  }
+
+  table {
+    border-top: 1px solid #cfcdd4;
+    border-bottom: 1px solid #cfcdd4;
+  }
+
+  .note {
+    background-color: #313131;
+    border: 1px solid #5a585c;
+  }
+
+  .dead {
+    background-color: #313131;
+  }
+}
+
+/* card sheets stolen from bootstrap */
+.card {
+  /* normalize fonts first */
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.card {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+}
+
+.card-footer {
+  padding: .75rem 1.25rem;
+  background-color: rgba(0,0,0,.03);
+  border-top: 1px solid rgba(0,0,0,.125);
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.card-footer:last-child {
+    border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
+}
+
+/* TCG changes */
+
+.id-holder {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 2px 5px 2px 5px;
+  border-radius: 0 8px 0 0;
+  font-size: 120%;
+}
+
+.rarity-holder {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-transform: uppercase;
+  padding: 2px 5px 2px 5px;
+  border-radius: 8px 0 0 0;
+  font-size: 120%;
+}
+
+.amount-holder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2px 5px 2px 5px;
+  border-radius: 0 0 8px 0;
+  font-size: 150%;
+}
+
+.promotion-holder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2px 5px 2px 5px;
+  border-radius: 0 0 0 8px;
+  font-size: 120%;
+}
+
+.invisible-space-holder {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.rarity-mythical {
+  background-color: #0C96B4;
+  color: white;
+}
+
+.card-body-tcg {
+  padding: 0;
+  position: relative;
+  text-align: center;
+}
+
+.card-tcg {
+  margin: 0.5rem;
+  display: inline-block;
+  min-width: 170px;
+}
+
+.card-image {
+  height: 250px;
+}
+
+.card-footer {
+  overflow: hidden;
+}
+
+.card-footer .owned-icon {
+  float: left;
+  margin-right: 10px;
+  font-size: 300%;
+}
+
+.card-footer .keep-box {
+  float: left;
+  margin-right: 10px;
+}
+
+.card-footer .card-info {
+  overflow: hidden;
+}
+
+.cardwrapper {
+  height: 370px;
+}
+

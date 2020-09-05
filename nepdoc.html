@@ -1,0 +1,2402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The NepDoc</title>
+<link rel="stylesheet" href="main.css" type="text/css" media="all">
+</head>
+<body>
+<header>
+<p class="title">
+The NepDoc
+</p>
+<p class="author">
+xorhash
+</p>
+<p class="purpose">
+This document aims to describe some of the more intricate mechanics of
+the NepNepBot on Twitch and the Waifu TCG in general.
+It takes and enriches the documentation available via <kbd>!help</kbd>.
+</p>
+<p class="purpose">
+If you are new to the TCG,
+you may want to first read and work through
+the <a href="https://xorhash.bitbucket.io/nepbot/quickstart/">Quickstart Guide</a>.
+</p>
+<p class="purpose">
+Worry not if you have trouble following everything in this text the
+first time.
+There are a number of details that only make sense once you have a
+general grasp the entire game.
+However, please do read this document carefully.
+No sentence is redundant.
+</p>
+<p class="purpose">
+The paragraph numbers on the left are clickable and points to a
+<i>permanent</i> link to the respective paragraph.
+The link only becomes invalid if the respective paragraph is removed.
+Because of this, paragraph numbers are not in perfect order.
+</p>
+<p class="purpose">
+This document may be out of date by at most two weeks.
+However, an effort is made to update it in a timely manner.
+</p>
+<p class="purpose">
+Sections with a gray background are no longer active,
+but are kept in place to keep the links intact.
+</p>
+<p class="lastupdate"><b>Last update</b>:&nbsp;<time datetime="2020-09-05 12:53:40+0200">2020-09-05 12:53:40+0200</time></p>
+</header>
+
+<main>
+<nav>
+<ul>
+<li><a href="#introduction">1&nbsp;&nbsp;Introduction</a>
+<li><a href="#cards">1.1&nbsp;&nbsp;Cards</a>
+<li><a href="#hand">1.2&nbsp;&nbsp;The hand</a>
+<li><a href="#account">1.3&nbsp;&nbsp;Your account</a>
+<li><a href="#commands">2&nbsp;&nbsp;Commands</a>
+<li><a href="#informational-commands">2.1&nbsp;&nbsp;Informational commands</a>
+<li><a href="#!search">2.2&nbsp;&nbsp;Finding a card by character (!search)</a>
+<li><a href="#!lookup">2.3&nbsp;&nbsp;Finding a card by waifu ID (!lookup)</a>
+<li><a href="#!checkhand">2.4&nbsp;&nbsp;Checking your hand (!checkhand)</a>
+<li><a href="#!points">2.5&nbsp;&nbsp;Checking your points (!points)</a>
+<li><a href="#!packspending">2.6&nbsp;&nbsp;Checking your spendings (!packspending)</a>
+<li><a href="#acquiring-cards">2.7&nbsp;&nbsp;Acquiring cards</a>
+<li><a href="#!freebie">2.8&nbsp;&nbsp;Daily freebie (!freebie, !freewaifu)</a>
+<li><a href="#!booster-list">2.8.1&nbsp;&nbsp;Listing boosters (!booster list)</a>
+<li><a href="#!booster-buy">2.8.2&nbsp;&nbsp;Buying a booster (!booster buy)</a>
+<li><a href="#free-packs">2.8.3&nbsp;&nbsp;Free booster packs</a>
+<li><a href="#!freepacks">2.8.4&nbsp;&nbsp;Showing free packs (!freepacks)</a>
+<li><a href="#!freepacks-open">2.8.4.1&nbsp;&nbsp;Opening a free pack (!freepacks open)</a>
+<li><a href="#bounties">2.9&nbsp;&nbsp;Bounties</a>
+<li><a href="#!bounty">2.9.1&nbsp;&nbsp;Setting a bounty (!bounty)</a>
+<li><a href="#!bounty-cancel">2.9.1.1&nbsp;&nbsp;Cancelling a bounty (!bounty cancel)</a>
+<li><a href="#!bounty-list">2.9.1.2&nbsp;&nbsp;Listing your bounties (!bounty list)</a>
+<li><a href="#!bounty-check">2.9.1.3&nbsp;&nbsp;Checking the bounties on a card (!bounty check)</a>
+<li><a href="#!buy">2.10&nbsp;&nbsp;Buying cards (!buy)</a>
+<li><a href="#trading">2.11&nbsp;&nbsp;Trading</a>
+<li><a href="#!trade">2.11.1&nbsp;&nbsp;Initiating a trade (!trade)</a>
+<li><a href="#!trade-accept">2.11.1.1&nbsp;&nbsp;Accepting or declining a trade (!trade accept or decline)</a>
+<li><a href="#!trade-check">2.11.1.2&nbsp;&nbsp;Checking a trade (!trade check)</a>
+<li><a href="#!trade-accept">2.11.1.3&nbsp;&nbsp;Cancelling a trade (!trade cancel)</a>
+<li><a href="#!trade-list">2.11.1.4&nbsp;&nbsp;Listing pending trades (!trade list)</a>
+<li><a href="#pudding">2.12&nbsp;&nbsp;Pudding, the secondary currency</a>
+<li><a href="#!pudding">2.12.1&nbsp;&nbsp;Checking your pudding balance (!pudding)</a>
+<li><a href="#!pudding-list">2.12.2&nbsp;&nbsp;Listing boosters buyable with pudding (!pudding list)</a>
+<li><a href="#!pudding-booster">2.12.3&nbsp;&nbsp;Buying a booster with pudding (!pudding booster / !pudding buy)</a>
+<li><a href="#!pudding-topup">2.12.4&nbsp;&nbsp;Buying pudding with points (!pudding topup)</a>
+<li><a href="#!sendpoints">2.13&nbsp;&nbsp;Points transfers (!sendpoints)</a>
+<li><a href="#anniversary-2019-cmds">2.14&nbsp;&nbsp;Event token commands</a>
+<li><a href="#!tokenshop">2.14.1&nbsp;&nbsp;Showing rewards (!tokenshop)</a>
+<li><a href="#!tokenshop-listpromos">2.14.2&nbsp;&nbsp;Showing the list of available Promos (!tokenshop listpromos)</a>
+<li><a href="#!tokenshop-buy">2.14.3&nbsp;&nbsp;Buying an item from the token shop (!tokenshop buy)</a>
+<li><a href="#!tokenshop-special">2.14.4&nbsp;&nbsp;Configuring your Special card (!tokenshop special)</a>
+<li><a href="#!tokenshop-gacha-roll">2.14.5&nbsp;&nbsp;Tokenshop gacha (!tokenshop gacha roll)</a>
+<li><a href="#betting">2.15&nbsp;&nbsp;Betting</a>
+<li><a href="#!bet">2.15.1&nbsp;&nbsp;Placing a bet (!bet)</a>
+<li><a href="#!bet-streamer">2.15.2&nbsp;&nbsp;Hosting a bet as a streamer (!bet open/start/end)</a>
+<li><a href="#!bet-cancel">2.15.3&nbsp;&nbsp;Cancelling a bet (!bet cancel)</a>
+<li><a href="#!bet-forcereset">2.15.4&nbsp;&nbsp;Resetting a bet (!bet forcereset)</a>
+<li><a href="#sets">2.16&nbsp;&nbsp;Sets</a>
+<li><a href="#!sets">2.16.1&nbsp;&nbsp;Viewing the list of sets (!sets)</a>
+<li><a href="#!sets-claim">2.16.2&nbsp;&nbsp;Claiming sets (!sets claim)</a>
+<li><a href="#!set-checkid">2.16.3&nbsp;&nbsp;Getting the set badge ID (!set checkid)</a>
+<li><a href="#!setbadge">2.16.4&nbsp;&nbsp;Setting the badge image (!setbadge)</a>
+<li><a href="#miscellaneous-commands">2.17&nbsp;&nbsp;Miscellaneous commands</a>
+<li><a href="#!redeem">2.17.1&nbsp;&nbsp;Tokens (!redeem)</a>
+<li><a href="#!whisper">2.17.2&nbsp;&nbsp;Testing whispers (!whisper)</a>
+<li><a href="#!upgrade">2.17.3&nbsp;&nbsp;Hand upgrade (!upgrade)</a>
+<li><a href="#!de">2.17.4&nbsp;&nbsp;Disenchanting a card (!disenchant)</a>
+<li><a href="#!nepleave">2.17.5&nbsp;&nbsp;Making the bot leave your channel (!nepleave)</a>
+<li><a href="#!nepcord">2.17.6&nbsp;&nbsp;Waifu TCG Discord server link (!nepcord)</a>
+<li><a href="#!fixwaifu">2.17.7&nbsp;&nbsp;Link to fix suggestion form (!fixwaifu)</a>
+<li><a href="#!giveme">2.17.8&nbsp;&nbsp;Give me (!giveme)</a>
+<li><a href="#!sorthand">2.17.9&nbsp;&nbsp;Sorting your hand (!sorthand)</a>
+<li><a href="#!sorthand-reset">2.17.10&nbsp;&nbsp;Resetting your hand sorting (!sorthand reset)</a>
+<li><a href="#profiles">2.18&nbsp;&nbsp;Profiles</a>
+<li><a href="#!profile-description">2.18.1&nbsp;&nbsp;Setting a profile description (!profile description)</a>
+<li><a href="#!profile-favorite">2.18.2&nbsp;&nbsp;Picking a favorite card (!profile favorite)</a>
+<li><a href="#godimages">2.19&nbsp;&nbsp;Images for promoted god cards</a>
+<li><a href="#!godimage-list">2.19.1&nbsp;&nbsp;Listing requested changes (!godimage list)</a>
+<li><a href="#!godimage-cancel">2.19.2&nbsp;&nbsp;Cancelling a request (!godimage cancel)</a>
+<li><a href="#alerts">2.20&nbsp;&nbsp;Streamlabs alerts</a>
+<li><a href="#!alerts-setup">2.20.1&nbsp;&nbsp;Setting up streamlabs alerts (!alerts setup)</a>
+<li><a href="#!alerts-test">2.20.2&nbsp;&nbsp;Testing streamlabs alerts (!alerts test)</a>
+<li><a href="#!alerts-config">2.20.3&nbsp;&nbsp;Configuring streamlabs alerts (!alerts config)</a>
+<li><a href="#!alerts-config-channel">2.20.3.1&nbsp;&nbsp;Streamlabs alert channel (!alerts config alertChannel)</a>
+<li><a href="#alerts-sounds">2.20.3.2&nbsp;&nbsp;Streamlabs sound options</a>
+<li><a href="#alerts-duration">2.20.3.3&nbsp;&nbsp;Streamlabs alert duration options</a>
+<li><a href="#!alerts-config-color">2.20.3.4&nbsp;&nbsp;Streamlabs alert text color (!alerts config color)</a>
+<li><a href="#anniversary-2019">3&nbsp;&nbsp;The 2019 anniversary event</a>
+<li><a href="#communism">4&nbsp;&nbsp;Points distribution</a>
+<li><a href="#irregular-rarities">5&nbsp;&nbsp;Cards of irregular rarity</a>
+<li><a href="#promos">5.1&nbsp;&nbsp;Promo cards</a>
+<li><a href="#specials">5.2&nbsp;&nbsp;Special cards</a>
+<li><a href="#pulling-algorithm">6&nbsp;&nbsp;Pulling algorithm</a>
+<li><a href="#pulling-algorithm-concepts">6.1&nbsp;&nbsp;Core concepts</a>
+<li><a href="#pulling-algorithm-cards">6.2&nbsp;&nbsp;Pulling the cards</a>
+<li><a href="#pulling-algorithm-pity">6.3&nbsp;&nbsp;Pity</a>
+<li><a href="#pulling-algorithm-weighting">6.4&nbsp;&nbsp;Weighting</a>
+<li><a href="#meta">7&nbsp;&nbsp;Meta</a>
+<li><a href="#arg">7.1&nbsp;&nbsp;Alternate reality game (ARG)</a>
+<li><a href="#get-rich-quick">7.2&nbsp;&nbsp;Community promise</a>
+<li><a href="#postcards">7.3&nbsp;&nbsp;Postcards</a>
+<li><a href="#historical-sections">8&nbsp;&nbsp;Historical sections</a>
+<li><a href="#anniversary-2018">8.1&nbsp;&nbsp;The 2018 anniversary event</a>
+</ul>
+</nav>
+
+<h1 id="introduction">Introduction</h1>
+<p id="p1"><span class="pn"><a href="#p1">[1]</a></span>
+The Waifu TCG is an online trading card game (TCG).
+The term &ldquo;waifu&rdquo; has its roots in Western weeaboo culture.
+&ldquo;Waifu&rdquo; is frequently used to refer to a fictional character that the
+speaker has romantic feelings for.
+It is the English word &ldquo;wife&rdquo; transcribed to Japanese
+<i>katakana</i>,
+then that transcription is transcribed back to the Latin alphabet using
+the Hepburn romanization.
+The Waifu TCG itself has its roots in the Hyperdimension Neptunia
+community on the Twitch livestreaming service (henceforth just
+&ldquo;Twitch&rdquo;).
+</p>
+<p id="p2"><span class="pn"><a href="#p2">[2]</a></span>
+In the Waifu TCG, players can collect individual cards of predefined
+characters.
+Players are given freedom to pursue their own goals.
+The cards cannot be used for battling as one might otherwise expect from
+a TCG.
+<h2 id="cards">Cards</h2>
+<p id="p3"><span class="pn"><a href="#p3">[3]</a></span>
+The Waifu TCG is played by sending commands to an automated program on
+the Twitch livestreaming service, a bot called NepNepBot.
+</p>
+<p id="p4"><span class="pn"><a href="#p4">[4]</a></span>
+Players can acquire cards through a variety of means, to be
+described in the command documentation.
+Doing so usually requires points.
+Points are periodically given by the bot or can be acquired through
+various other means.
+</p>
+<aside>
+<p>
+Refer to the command documentation for those other means:
+Use
+<kbd>!help</kbd>
+in any channel with the bot, or see below.
+</p>
+</aside>
+<p id="p5"><span class="pn"><a href="#p5">[5]</a></span>
+Every <em>card</em> has a card ID (short for identifier) that is used to
+uniquely refer to a card.
+Every <em>waifu</em> has an ID that is used to refer to a waifu.
+A card is an individual copy, an <q>instance</q> of a waifu, so to speak.
+A single character may have more than one card.
+For example, waifu ID 1687 could refer to this card:
+<div class="cardwrapper">
+  <div class="card card-tcg card-mythical">
+    <div class="card-body card-body-tcg">
+      <img src="https://lowee.de/ayDfu6I.jpg" alt="Rem" title="Rem"
+      class="card-image" width="195" height="250">
+      <div class="id-holder rarity-mythical">1687</div>
+      <div class="invisible-space-holder">&nbsp;</div>
+      <div class="rarity-holder rarity-mythical">mythical</div>
+      <div class="promotion-holder rarity-mythical">★</div>
+    </div>
+    <div class="card-footer text-center">Rem<br>Re:Zero<br>Card ID: 1007583<br>Tradeable<br>Created July 22nd 2019, 3:51:59 am</div>
+  </div>
+</div>
+</p>
+<p id="p6"><span class="pn"><a href="#p6">[6]</a></span>
+As can be discerned from the example card, each card contains:
+</p>
+<ol>
+  <li>an image of the character,</li>
+  <li>the character's name (Rem),</li>
+  <li>the series the character originates from (Re:Zero),</li>
+  <li>the card's rarity (Mythical),</li>
+  <li>the card's waifu ID (1687),</li>
+  <li>the card's promotion level (one star, i.e. one promotion),</li>
+  <li>the card's ID (1007583),</li>
+  <li>the card's tradability status (it can be traded),</li>
+  <li>the card's creation date and time (in local time).</li>
+</ol>
+<p id="p7"><span class="pn"><a href="#p7">[7]</a></span>
+Each card has a <b>rarity</b>.
+Rarities range from Common through God.
+Each rarity has an associated value.
+The value becomes relevant in a number of contexts;
+see the command documentation for details.
+<!--
+Some rarities may have a drop limit.
+The drop limit specifies how many times a card can exist at the same
+time.
+-->
+There are also two rarities &ndash; Special and Promo &ndash; that have their
+own meanings.
+Special cards are unique in the entire game.
+They are not normally obtainable, but may be available through raffles
+and the like.
+Promos are not normally obtainable, but also not unique;
+they are usually available through redeem codes during events such as
+the HDN Marathon or holidays.
+Neither Special cards nor Promos take up space in your hand.
+</p>
+<table>
+  <tr><th>Rarity</th><th>Value</th><th>Min. Bounty</th><th>Max. Bounty</th><!-- <th>Drop Limit</th> --><th>Cards to God</th></tr>
+  <tr><td>Common</td><td>5</td><td>50</td><td>100</td><!-- <td>unlimited</td> --><td>192</td></tr>
+  <tr><td>Uncommon</td><td>10</td><td>75</td><td>250</td><!-- <td>unlimited</td> --><td>96</td></tr>
+  <tr><td>Rare</td><td>50</td><td>100</td><td>500</td><!-- <td>50</td> --><td>48</td></tr>
+  <tr><td>Super</td><td>250</td><td>400</td><td>1000</td><!-- <td>25</td> --><td>24</td></tr>
+  <tr><td>Ultra</td><td>1000</td><td>1250</td><td>2000</td><!-- <td>10</td> --><td>12</td></tr>
+  <tr><td>Legendary</td><td>2500</td><td>3000</td><td>6000</td><!-- <td>7</td> --><td>6</td></tr>
+  <tr><td>Mythical</td><td>6000</td><td>7000</td><td>20000</td><!-- <td>4</td> --><td>3</td></tr>
+  <tr><td>God</td><td>15000</td><td>16000</td><td>50000</td><!-- <td>1</td> --><td>N/A</td></tr>
+  <tr><td>Promo</td><td>0</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
+  <tr><td>Special</td><td>0</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
+</table>
+<p id="p8"><span class="pn"><a href="#p8">[8]</a></span>
+Individual cards may have a higher rarity than their base rarity.
+This is called <b>promotion</b>:
+When two cards with the same ID and rarity are in your hand, they will
+automatically be promoted to the next rarity;
+Mythical cards require three cards to be promoted to God.
+Taking a card with a Common base rarity to God rarity will thus require
+8&nbsp;spaces in your hand.
+Promotion does not affect the bounty value;
+the bounty value is determined by the card's base rarity.
+<!--
+A promoted card contributes to the drop limit at all lower rarities,
+e.g. a Legendary promoted to God counts for the drop limit at Legendary
+(6&nbsp;others left at most), Mythical (3&nbsp;others left at most) and God
+(0&nbsp;others left).
+-->
+Some cards cannot be promoted:
+[7609][Mythical]&nbsp;Hatsune Miku Bridal Version from Vocaloid has been
+confirmed, [7576][Mythical]&nbsp;Gehaburn is very likely not able to be
+promoted.
+The reasons for this phenomenon are unknown,
+but it seems like a deliberate decision.
+</p>
+<p id="p9"><span class="pn"><a href="#p9">[9]</a></span>
+If a card is promoted to the highest rarity (God),
+the <kbd>!godimage</kbd> command allows changing the image for it in your hand,
+see <a href="#p127">&para;&para;&nbsp;127&nbsp;et&nbsp;seqq.</a>
+The earliest promoted God in existence gets a cosmetic benefit:
+It receives a golden glow and card attributes;
+its rarity will be shown as <span style="white-space:nowrap">α&thinsp;God</span> as well.
+</p>
+<p id="p10"><span class="pn"><a href="#p10">[10]</a></span>
+Promotion causes a card to be removed and a new one to be generated in the
+stead of the cards used to promote,
+i.e. if cards 1000123 and 1001432 promote to a new card,
+it will get a new card ID and the creation date will be set to the date of the
+promotion.
+This only affects card creation date and legacy status,
+but is otherwise just a technicality.
+</p>
+<p id="p11"><span class="pn"><a href="#p11">[11]</a></span>
+Removing a card from play is called <b>disenchanting</b>
+or <b>de</b> for short.
+This term is used for cards you have in a booster or in your hand.
+<h2 id="hand">The hand</h2>
+<p id="p12"><span class="pn"><a href="#p12">[12]</a></span>
+Your hand consists of the cards you are currently holding and your
+currently active bounties.
+Players start with 7&nbsp;hand spaces, but more are acquired by spending
+money on booster packs.
+</p>
+<p id="p13"><span class="pn"><a href="#p13">[13]</a></span>
+Hands can be upgraded.
+Upgrading your hand means adding one space to your hand, allowing you to
+hold another card or place an additional bounty.
+Normally, your hand grows with buying booster packs:
+Every time your total spending on booster packs hits a certain
+threshold, your hand is automatically upgraded.
+</p>
+<p id="p14"><span class="pn"><a href="#p14">[14]</a></span>
+The spending required for hand upgrades starts at 2000&nbsp;points.
+Starting with space&nbsp;24, the spending required is exactly
+1,000,000&nbsp;points since the previous upgrade.
+<table>
+  <tr><th class="ra">Slot Number</th><th class="ra">Spending</th></tr>
+  <tr><td class="ra">8</td><td class="ra">2,000</td></tr>
+  <tr><td class="ra">9</td><td class="ra">7,000</td></tr>
+  <tr><td class="ra">10</td><td class="ra">14,500</td></tr>
+  <tr><td class="ra">11</td><td class="ra">24,500</td></tr>
+  <tr><td class="ra">12</td><td class="ra">39,500</td></tr>
+  <tr><td class="ra">13</td><td class="ra">59,500</td></tr>
+  <tr><td class="ra">14</td><td class="ra">84,500</td></tr>
+  <tr><td class="ra">15</td><td class="ra">134,500</td></tr>
+  <tr><td class="ra">16</td><td class="ra">234,500</td></tr>
+  <tr><td class="ra">17</td><td class="ra">434,500</td></tr>
+  <tr><td class="ra">18</td><td class="ra">784,500</td></tr>
+  <tr><td class="ra">19</td><td class="ra">1,284,500</td></tr>
+  <tr><td class="ra">20</td><td class="ra">1,784,500</td></tr>
+  <tr><td class="ra">21</td><td class="ra">2,500,000</td></tr>
+  <tr><td class="ra">22</td><td class="ra">3,250,000</td></tr>
+  <tr><td class="ra">23</td><td class="ra">4,000,000</td></tr>
+  <tr><td class="ra">24</td><td class="ra">5,000,000</td></tr>
+  <tr><td class="ra">25</td><td class="ra">6,000,000</td></tr>
+  <tr><td class="ra">etc.</td><td class="ra">etc. (+1,000,000 per space)</td></tr>
+</table>
+<h2 id="account">Your account</h2>
+<p id="p15"><span class="pn"><a href="#p15">[15]</a></span>
+Your account on the Waifu TCG is tied to your Twitch account,
+but not your Twitch username.
+It is safe to change your name on Twitch;
+you will keep your waifus.
+<i>If you are a streamer</i>,
+notify the admins of your name change because that requires special handling on their end.
+</p>
+<!-- OBSOLETE (that was fast...)
+<p id="p16"><span class="pn"><a href="#p16">[16]</a></span>
+<strong>If you are inactive for 90&nbsp;days,
+  your account will be wiped.</strong>
+
+Activity constitutes executing any TCG bot command.
+Even just checking your points balance will suffice to be considered active again
+and reset the 90&nbsp;day counter.
+If your account is wiped, the cards of regular rarity (Common through God)
+are removed from play <em>without filling bounties</em>;
+cards of irregular rarity (Special and Promo) are preserved.
+Should you know that you will be gone for an extended amount of time,
+you can apply to staff on Discord for an exemption.
+</p>
+-->
+<h1 id="commands">Commands</h1>
+<p id="p17"><span class="pn"><a href="#p17">[17]</a></span>
+This section describes the commands available for use with NepNepBot.
+Commands can be used by either sending them as a whisper to NepNepBot or
+by sending them to a Twitch channel where NepNepBot resides.
+</p>
+<p id="p18"><span class="pn"><a href="#p18">[18]</a></span>
+An &ldquo;argument&rdquo; or &ldquo;parameter&rdquo; is a second word to be sent to the bot.
+Here is an example command: <kbd>!search Mythra</kbd>.
+!search is the command itself, and Mythra is the first argument to the
+command.
+</p>
+<p id="p19"><span class="pn"><a href="#p19">[19]</a></span>
+All commands that take an ID will normally work with waifu IDs.
+If a waifu ID is ambiguous (because you have more than one of it in your
+hand),
+you will have to specify the <i>card ID</i> instead.
+</p>
+<h2 id="informational-commands">Informational commands</h2>
+<p id="p20"><span class="pn"><a href="#p20">[20]</a></span>
+Some commands are used to obtain information about about cards.
+Informational commands are affected by a timeout, limiting how often you
+can use them.
+If too many of these commands are invoked within a certain timeframe,
+further informational commands cannot be used until the timeout reset.
+The timeout reset is global for all users.
+It seems that the timeout reset occurs every 30&nbsp;or 60&nbsp;minutes.
+It is unknown how many commands are needed to trigger the timeout.
+</p>
+<p id="p21"><span class="pn"><a href="#p21">[21]</a></span>
+A much more generous timeout is applied for commands:
+</p>
+<ol>
+  <li>in whispers,</li>
+  <li>in the NepNepBot channel,</li>
+  <li>if the Twitch streamer uses the commands in his or her own channel.</li>
+</ol>
+<h2 id="!search">Finding a card by character (!search)</h2>
+<p id="p22"><span class="pn"><a href="#p22">[22]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!search <i>character name</i> [from <i>series</i>]</kbd>
+</p>
+<p id="p23"><span class="pn"><a href="#p23">[23]</a></span>
+The !search command can be used to find a card for a certain character.
+Either &ldquo;!search <i>character name</i>&rdquo;
+or &ldquo;!search <i>character name</i> from <i>series</i>&rdquo;
+can be used.
+Character name and series are searched for partial matches, so that
+&ldquo;gahar&rdquo; will find &ldquo;Hitagi Senjougahara&rdquo;.
+There is no way to force a search for an exact match;
+add the series name if needed.
+Character names and series may contain diacritics (e.g. Pokémon).
+However, searching for &ldquo;Pokemon&rdquo; will find Pokémon.
+</p>
+<p id="p24"><span class="pn"><a href="#p24">[24]</a></span>
+To find more information about a particular card, use !lookup with the
+ID you get from !search.
+</p>
+<h2 id="!lookup">Finding a card by waifu ID (!lookup)</h2>
+<p id="p25"><span class="pn"><a href="#p25">[25]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!lookup <i>waifuID</i></kbd>
+</p>
+<p id="p26"><span class="pn"><a href="#p26">[26]</a></span>
+The !lookup command can be used to find a card for a certain waifu ID.
+If you only know a name, use !search instead.
+This command shows the following information about the card:
+</p>
+<ol>
+  <li>the name of the character,</li>
+  <li>the series,</li>
+  <li>a link to the picture, and</li>
+  <li>who currently owns the card.</li>
+</ol>
+
+<h2 id="!checkhand">Checking your hand (!checkhand)</h2>
+
+<p id="p27"><span class="pn"><a href="#p27">[27]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!checkhand [verbose]</kbd>
+</p>
+<p id="p28"><span class="pn"><a href="#p28">[28]</a></span>
+!checkhand is used to check your own hand.
+It takes an optional argument.
+If no argument is given, NepNepBot will send you a link to a website
+that displays your hand.
+If an argument is given and it is the text &ldquo;verbose&rdquo;, NepNepBot will
+instead send the entire hand as a whisper.
+In order for NepNepBot to be able to whisper to you, you must follow
+NepNepBot on Twitch.
+This command is not affected by the timeout on informational commands.
+</p>
+<h2 id="!points">Checking your points (!points)</h2>
+
+<p id="p29"><span class="pn"><a href="#p29">[29]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!points</kbd>
+</p>
+<p id="p30"><span class="pn"><a href="#p30">[30]</a></span>
+!points is used to check the amount of points and the total amount of
+pudding you have.
+Points are given by the bot periodically, through redeem codes,
+disenchanting cards or through bets.
+Pudding are given as rewards for bets and set claims; see below.
+This command is not affected by the timeout on informational commands.
+</p>
+<h2 id="!packspending">Checking your spendings (!packspending)</h2>
+<p id="p31"><span class="pn"><a href="#p31">[31]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!packspending</kbd>
+</p>
+<p id="p32"><span class="pn"><a href="#p32">[32]</a></span>
+Using !packspending will show how many packs you have opened and how
+many points you have spent on doing so.
+It will also include packs that you got for free (redeem tokens or
+bets).
+This command is not affected by the timeout on informational commands.
+<h2 id="acquiring-cards">Acquiring cards</h2>
+<p id="p33"><span class="pn"><a href="#p33">[33]</a></span>
+Cards can be acquired in various ways.
+This section describes the commands used to acquire cards.
+</p>
+<h2 id="!freebie">Daily freebie (!freebie, !freewaifu)</h2>
+<p id="p34"><span class="pn"><a href="#p34">[34]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!freebie</kbd>
+</p>
+<p id="p35"><span class="pn"><a href="#p35">[35]</a></span>
+Every 22&nbsp;hours, a single free card, a free booster pack or free
+points can be obtained with !freebie.
+Cards are directly added to the hand.
+Boosters are opened immediately.
+The rewards are fixed over a 30-day period, but their order is
+randomized during those 30&nbsp;days.
+The order is such that a &ldquo;good&rdquo; reward &ndash; as determined by the TCG
+administration &ndash; cannot be immediately followed by another &ldquo;good&rdquo;
+reward.
+However, since the rewards are subject to change at any time, a full
+list of the rewards is not listed here.
+What <em>is</em> known about the rewards is that:
+</p>
+<ol>
+  <li>there will be no guaranteed card of Mythical rarity or above;</li>
+  <li>points can be combined with any other reward;</li>
+  <li> the rarity of individual cards is predetermined, meaning that the only randomness is
+    <em>what</em> card of that rarity you get.</li>
+</ol>
+<p id="p36"><span class="pn"><a href="#p36">[36]</a></span>
+If you have no hand space and get a free card,
+the free card is instead put into a newly created, fake booster pack.
+This requires no hand space, but you must not currently have a booster
+pack opened.
+Due to technical reasons regarding the way !freebie fake booster packs
+work, they cannot be sent to !freepacks.
+</p>
+<p id="p37"><span class="pn"><a href="#p37">[37]</a></span>
+If you have no booster space and get a free booster pack,
+the free booster is instead sent to the !freepacks system.
+</p>
+<h3 id="!booster-list">Listing boosters (!booster list)</h3>
+<p id="p38"><span class="pn"><a href="#p38">[38]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!booster list</kbd>
+</p>
+<p id="p39"><span class="pn"><a href="#p39">[39]</a></span>
+This command shows a list of booster packs that can be bought
+and the amount of points required to buy them.
+This list may not accurately reflect the list of boosters that can
+actually be bought &ndash; being listed and being buyable are two separate
+pieces of information in the database.
+A more detailed list of booster packs is, however, available in the next
+section.
+</p>
+<h3 id="!booster-buy">Buying a booster (!booster buy)</h3>
+<p id="p40"><span class="pn"><a href="#p40">[40]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!booster buy <i>kind</i></kbd>
+</p>
+<p id="p41"><span class="pn"><a href="#p41">[41]</a></span>
+The !booster buy command buys a booster pack of the given kind.
+A booster pack contains a number of random cards.
+There is a pity system for boosters that ensure that cards of certain
+rarities are always obtainable eventually;
+the pity value increases roughly with packspending.
+A list of known booster packs follows;
+<i>
+the ones listed on a gray background are no longer available,
+but are listed for historical accuracy.
+</i>
+</p>
+<table id="packtable">
+  <tr><th>Kind</th><th>Price</th><th>Best for</th><th>Min. Rarity</th><th>Cards</th></tr>
+  <tr><td>scam</td><td>100</td><td>(always suboptimal)</td><td>Common</td><td>1</td></tr>
+  <tr><td>standard</td><td>250</td><td>Common/&#8203;Uncommon</td><td>Common</td><td>8</td></tr>
+  <tr><td>jumbo</td><td>625</td><td>Common/&#8203;Uncommon</td><td>Common</td><td>20</td></tr>
+  <tr><td>super</td><td>1000</td><td>Rare/&#8203;Super</td><td>Common (3&nbsp;Rare)</td><td>6</td></tr>
+  <tr><td>premium</td><td>3000</td><td>Super/&#8203;Ultra/&#8203;Legendary</td><td>Rare (2&nbsp;Super)</td><td>5</td></tr>
+  <tr><td>ultimate</td><td>5000</td><td>Legendary/&#8203;Mythical</td><td>Super</td><td>4</td></tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+  <tr><td>meme</td><td>(N/A)</td><td>Common/&#8203;Uncommon</td><td>Common</td><td>100</td></tr>
+  <tr><td>supermeme</td><td>(N/A)</td><td>Rare/&#8203;Super</td><td>Common</td><td>100</td></tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+  <tr class="dead"><td>anniversary</td><td>4000</td><td>Super/&#8203;Ultra/&#8203;Legendary</td><td>Rare (3&nbsp;Super)</td><td>7</td></tr>
+  <tr class="dead"><td>blazeit</td><td>420</td><td>(always suboptimal)</td><td>Common</td><td>1</td></tr>
+  <tr class="dead"><td>jumblazeit</td><td>4200</td><td>(always suboptimal)</td><td>Common</td><td>11</td></tr>
+  <tr class="dead"><td>halfmeme</td><td>2000</td><td>Common/&#8203;Uncommon</td><td>Common</td><td>50</td></tr>
+  <tr class="dead"><td>holiday</td><td>1500</td><td>(special)</td><td>Uncommon (4&nbsp;Rare)</td><td>6</td></tr>
+  <tr class="dead"><td>jumbholiday</td><td>7500</td><td>(special)</td><td>Uncommon</td><td>30</td></tr>
+  <tr class="dead"><td>jumbultimate</td><td>32000</td><td>Legendary/&#8203;Mythical</td><td>Super</td><td>20</td></tr>
+</table>
+<!-- .LP -->
+<!-- The following table lists the content of a pack considered a &ldquo;scam&rdquo; -->
+<!-- (not to be confused with the scam pack), i.e. a pack that has the least -->
+<!-- amount of points possible: -->
+<!-- .TS -->
+<!-- center, box, tab(;); -->
+<!-- lfB lfB lfB -->
+<!-- l l l. -->
+<!-- Kind;Total Disenchant Value;Approximate Odds -->
+<!-- _ -->
+<!-- scam;5;90% -->
+<!-- standard;30;1/24 -->
+<!-- jumbo;75;1/3000 -->
+<!-- super;160;1/14 -->
+<!-- premium;600;1/6 -->
+<!-- ultimate;750;1/12 -->
+<!-- _ -->
+<!-- holiday;220;1/11 -->
+<!-- jumbholiday;1740;1/3000 -->
+<!-- .TE -->
+<p id="p42"><span class="pn"><a href="#p42">[42]</a></span>
+After buying a pack, NepNepBot will give you a link where you can select
+which cards to keep and which cards to disenchant.
+If you get a Legendary or higher, it is considered good practice not to
+disenchant a card you don't want.
+Instead, check if anybody owns the card already;
+you may want to give it to them if they wish to promote.
+You can &ndash; in addition or alternatively &ndash; give
+#focused-trading on the Waifu&nbsp;TCG Discord server a heads
+up that you are planning to disenchant the card and a timeframe when you
+will disenchant it.
+<aside>
+<p>
+You can get a link to the Discord server by using
+<kbd>!nepcord</kbd>
+in any NepNepBot channel.
+</p>
+</aside>
+<p id="p43"><span class="pn"><a href="#p43">[43]</a></span>
+Make sure to mention
+<b>@TCG Player</b>
+when giving a heads up.
+This allows players to set bounties.
+You should give at least a couple of hours, but around 12&ndash;24 hours
+would be ideal.
+</p>
+<p id="p44"><span class="pn"><a href="#p44">[44]</a></span>
+<b>Standard</b>
+and
+<b>jumbo</b>
+packs are the same except for the number of cards in each pack.
+Scam packs are heavily weighed towards cards with Common rarity, with
+Uncommon rarity happening occasionally;
+prefer using !buy Common, which costs only 25&nbsp;points instead of
+100&nbsp;points.
+The odds on a
+<b>scam</b>
+pack are such that if it gives you a Rare card,
+you would have gotten a Mythical from a standard pack.
+Certain packs above standard and jumbo may guarantee at least one card
+of a certain rarity.
+Packs mainly change the weighing of odds for certain rarity thresholds.
+They may also guarantee a certain minimum card rarity.
+</p>
+<p id="p45"><span class="pn"><a href="#p45">[45]</a></span>
+Opened booster packs expire after 28&nbsp;days.
+If booster pack expires, the cards will be transferred to your hand
+automatically;
+the rest will be disenchanted.
+If there are more cards in the booster pack than there is space in your
+hand, only as many as can fit in your hand will be transferred, with
+cards of higher rarity being prioritized.
+If multiple cards have the same rarity, the resulting order amongst them
+is unpredictable.
+</p>
+<p id="p46"><span class="pn"><a href="#p46">[46]</a></span>
+There are a number of special packs.
+The
+<b>meme</b>
+booster is added automatically into the !freepacks system if you buy a
+jumbo booster that ends up having a disenchant value of exactly
+625&nbsp;points
+or (during the anniversary 2019 event:)
+an anniversary booster of exactly 4000&nbsp;points
+before bounties.
+The
+<b>supermeme</b>
+booster
+is given if you buy a standard booster and it disenchants for
+exactly 420&nbsp;points or if you buy a jumbo booster and it disenchants for
+exactly 100&nbsp;points (contains only Common cards);
+the odds of a supermeme being awarded are 1/30,000.
+It contains 100&nbsp;cards at the odds of a super booster.
+A 420&nbsp;points jumbo pack does not entitle to any reward; neither does an
+all-Common or a 625&nbsp;point standard pack;
+the odds of a meme being awarded are around 1/1000.
+</p>
+<p id="p47"><span class="pn"><a href="#p47">[47]</a></span>
+The
+<b>holiday</b>
+booster is a variant of the super booster that has slightly better odds
+and contained one more card.
+It was available during the holiday weeks of 2017 and is again available
+December&nbsp;1, 2018 to January&nbsp;14, 2019.
+The Christmas versions had Ultra rarity during the event of 2017;
+they were changed to what is now called Promo after the event.
+It uses so-called event weightings, which makes it drop the
+Christmas/Winter versions of some cards more frequently.
+They guarantee four Rare cards; no card is below Uncommon.
+The
+<b>jumbholiday</b>
+booster is a holiday booster that just costs five times as much and
+contains five times as many cards as a regular holiday booster.
+</p>
+<p id="p48"><span class="pn"><a href="#p48">[48]</a></span>
+Similarly,
+the
+<b>jumbultimate</b>
+booster was a variant of the ultimate booster, available during May
+2018.
+It contained 20&nbsp;cards at ultimate odds.
+Since it was available only for a limited time, it is slightly more
+cost-efficient than the equivalent amount of ultimate boosters:
+Buying a jumbultimate saved 1333&nbsp;points over buying the equivalent
+amount in actual ultimate boosters.
+Megaultimates can be used to a similar effect now,
+though without cost savings.
+The
+<b>halfmeme</b>
+booster was a variant of the standard booster, available during late June
+and early-mid July 2018.
+It contained 50&nbsp;cards at standard/jumbo booster odds.
+Since it was available only for a limited time, it was slightly more
+cost-efficient than the equivalent amount of ultimate boosters:
+Buying a halfmeme saved 83&nbsp;points over buying the equivalent
+amount in actual standard/jumbo boosters.
+</p>
+<p id="p48a" class="dead"><span class="pn"><a href="#p48a">[48a]</a></span>
+During the anniversary event, the
+<b>anniversary</b>
+booster is a booster pack with 7&nbsp;cards with odds that are comparable to
+those of a premium booster but with bias towards Legendaries in particular,
+costing 4000&nbsp;points.
+They have a highly boosted chance for event tokens.
+</p>
+<p id="p49"><span class="pn"><a href="#p49">[49]</a></span>
+Furthermore, there is the
+<b>freeultra</b>
+booster that contains exactly 1&nbsp;Ultra card.
+Similar packs exist for other high rarities.
+Those are used only internally, for example for raffles and such.
+</p>
+<p id="p50"><span class="pn"><a href="#p50">[50]</a></span>
+The
+<b>blazeit</b>
+and
+<b>jumblazeit</b>
+boosters have the same odds as the scam pack.
+These boosters were removed shortly after its introduction.
+</p>
+<p id="p51"><span class="pn"><a href="#p51">[51]</a></span>
+All packs except jumbo can be prefixed with &ldquo;mega&rdquo;,
+e.g. &ldquo;megaultimate&rdquo;.
+This buys five of the same pack and puts them in one large booster at
+five&nbsp;times the cost.
+For a megaultimate, that would make 20 cards for 25,000&nbsp;points in one
+booster.
+Because this is implemented as opening five of the same pack,
+your chances of getting a free meme or supermeme pack are the same as if
+you were buying five jumbos/standards separately.
+<h3 id="free-packs">Free booster packs</h3>
+<p id="p52"><span class="pn"><a href="#p52">[52]</a></span>
+A system for free booster packs exists.
+Free packs do not expire.
+Even though they are free, they behave like normal packs of their kind.
+In particular, a free pack contributes to pity like a bought pack.
+Free packs can be obtained from:
+</p>
+<ol>
+  <li>winning one of the big prizes in a bet;</li>
+  <li>opening a pack with a special disenchant value as noted above;</li>
+  <li>through a bot administrator, usually by winning some sort of contest ran on the Waifu&nbsp;TCG Discord server.</li>
+</ol>
+<h3 id="!freepacks">Showing free packs (!freepacks)</h3>
+<p id="p53"><span class="pn"><a href="#p53">[53]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!freepacks</kbd>
+</p>
+<p id="p54"><span class="pn"><a href="#p54">[54]</a></span>
+The !freepacks command shows the free packs you currently have.
+Even though this is an informational command, it is not affected by the
+timeout on informational commands.
+</p>
+<h4 id="!freepacks-open">Opening a free pack (!freepacks open)</h4>
+<p id="p55"><span class="pn"><a href="#p55">[55]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!freepacks open <i>booster</i></kbd>
+</p>
+<p id="p56"><span class="pn"><a href="#p56">[56]</a></span>
+This command opens the given <i>booster</i>.
+This ends up working effectively like !booster buy <i>booster</i>
+but no points are subtracted from your account.
+<h2 id="bounties">Bounties</h2>
+<p id="p57"><span class="pn"><a href="#p57">[57]</a></span>
+Bounties allow you to acquire cards you want.
+If the card with the given waifu ID is disenchanted,
+it will instead be given to the highest bounty bidder.
+Placing a bounty takes up a space in your hand until it is filled or
+cancelled.
+If your bounty is outbid, a whisper will be sent.
+Because the whisper system is notoriously unreliable, you should not
+rely on the whisper notification.
+For the purpose of bounties, promoted cards are reverted to their base
+rarity;
+use the <kbd>!trade</kbd> command to move a promoted card to another player
+instead.
+<b>
+Automating bounties, be it through bots or any other means, is
+prohibited.
+</b>
+</p>
+<p id="p58"><span class="pn"><a href="#p58">[58]</a></span>
+The maximum value (&ldquo;rarity cap&rdquo;) is an arbitrary, usually relatively
+large multiple of the rarity value of the card; see the rarity table
+above.
+It is possible to push the bounty past the rarity cap in order to outbid
+someone else already bidding the rarity cap.
+</p>
+<p id="p59"><span class="pn"><a href="#p59">[59]</a></span>
+Bounties cause new cards to be created;
+they do <em>not</em> preserve any attributes of the card other than the
+&ldquo;original owner&rdquo; attribute.
+In particular, this means that using bounties can cause cards to lose their
+legacy and first-god statuses.
+</p>
+<p id="p60"><span class="pn"><a href="#p60">[60]</a></span>
+When a bounty is filled, the player disenchanting the card gets a bonus
+in points for filling the bounty.
+For the purpose of calculating that bonus, the minimum bounty value of the
+card is taken at its base rarity, ignoring its promotions.
+If the bounty exceeds the rarity cap,
+the bonus is a quarter of the difference between the bounty and rarity
+cap,
+plus half of the difference between the rarity cap and the minimum
+bounty value.
+If the bounts is below or matches exactly the rarity cap,
+the bonus is either 2&nbsp;points or half of the difference between the
+bounty and the base value, whichever value is larger.
+All divisions are rounded down to the nearest integer if needed.
+</p>
+<!--
+Some examples to illustrate follow.
+._H 4 Bounty Bonus Calculation Examples
+._H 5 Regular Bounty
+<p id="p61"><span class="pn"><a href="#p61">[61]</a></span>
+The card being disenchanted has base rarity Mythical, but was promoted
+to God.
+The bounty is 19,001&nbsp;points.
+This does not exceed the rarity cap of 20,000&nbsp;points.
+.EQ I
+P sub bonus mark
+= left floor {P sub bounty - P sub base} over 2 right floor
+.EN
+.EQ I
+P sub bonus lineup
+= left floor {19001 - 7000} over 2 right floor
+= left floor 12001 over 2 right floor
+= left floor 6000.5 right floor
+= 6000
+.EN
+.EQ
+P sub total
+= P sub disenchant + P sub bonus
+= 15000 + 6000
+= 21000
+.EN
+._H 5 Bounty Above Rarity Cap
+<p id="p62"><span class="pn"><a href="#p62">[62]</a></span>
+The card being disenchanted has base rarity Mythical and was not
+promoted.
+The bounty is 100,001&nbsp;points.
+This exceeds the rarity cap of 20,000&nbsp;points.
+</p>
+.EQ I
+P sub bonus mark
+= left floor {P sub bounty - P sub "rarity cap"} over 4 right floor
++ left floor {P sub "rarity cap" - P sub disenchant} over 2 right floor
+.EN
+.EQ I
+P sub bonus lineup
+= left floor {100001 - 20000} over 4 right floor
++ left floor {20000 - 7000} over 2 right floor
+= left floor 20000.25 right floor
++ left floor 6500 right floor
+= 26500
+.EN
+.EQ
+P sub total
+= P sub minbounty + P sub bonus
+= 7000 + 26500
+= 33500
+.EN
+-->
+<h3 id="!bounty">Setting a bounty (!bounty)</h3>
+<p id="p63"><span class="pn"><a href="#p63">[63]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!bounty <i>waifuID</i> <i>amount</i></kbd>
+</p>
+<p id="p64"><span class="pn"><a href="#p64">[64]</a></span>
+The amount argument specifies how many points you are willing to spend
+on the bounty for the card with the given waifu ID.
+</p>
+<h4 id="!bounty-cancel">Cancelling a bounty (!bounty cancel)</h4>
+<p id="p65"><span class="pn"><a href="#p65">[65]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!bounty cancel <i>waifuID</i></kbd>
+</p>
+<p id="p66"><span class="pn"><a href="#p66">[66]</a></span>
+!bounty cancel is used to cancel a currently active bounty bid.
+If the bounty is above the maximum value, 50% of the points above the
+maximum value are forfeit when cancelling;
+everything up to and including the maximum value will be refunded.
+</p>
+<h4 id="!bounty-list">Listing your bounties (!bounty list)</h4>
+<p id="p67"><span class="pn"><a href="#p67">[67]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!bounty list</kbd>
+</p>
+<p id="p68"><span class="pn"><a href="#p68">[68]</a></span>
+!bounty list is used to list your currently active bounties and the
+associated points.
+No warning is shown if cancelling will lead to losing points.
+</p>
+<h4 id="!bounty-check">Checking the bounties on a card (!bounty check)</h4>
+<p id="p69"><span class="pn"><a href="#p69">[69]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!bounty check <i>waifuID</i></kbd>
+</p>
+<p id="p70"><span class="pn"><a href="#p70">[70]</a></span>
+!bounty check is used to check the bounties and their value for the
+given card.
+It will also show how high the highest bid is so that you can adjust
+your own bounty if necessary.
+This is an informational command that is subject to the global timeout.
+</p>
+<h2 id="!buy">Buying cards (!buy)</h2>
+<p id="p71"><span class="pn"><a href="#p71">[71]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!buy <i>rarity</i></kbd>
+</p>
+<p id="p72"><span class="pn"><a href="#p72">[72]</a></span>
+!buy is used to buy a random card of the given rarity.
+The price is always five times the value of the rarity.
+Booster packs provide better value in every case unless you are looking
+either at a very small pool (e.g. Mythicals) or you are looking for
+cards with Common rarity explicitly.
+<h2 id="trading">Trading</h2>
+<h3 id="!trade">Initiating a trade (!trade)</h3>
+<p id="p73"><span class="pn"><a href="#p73">[73]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!trade <i>player</i> <i>yourCardID</i> <i>theirCardID</i></kbd>
+</p>
+<p id="p74"><span class="pn"><a href="#p74">[74]</a></span>
+!trade is used to facilitate trading of cards between players,
+optionally including a points transfer.
+Trade offers are valid for 24&nbsp;hours.
+A Promo card can only be traded for another Promo card.
+If trading cards of differing rarities, the owner of the card of lower
+rarity has to cover the price difference of the cards' rarities;
+the points go to the owner of the card with the higher rarity.
+The minimum price to pay is 50% of the difference of the values between
+the cards.
+The maximum price that can be paid is 100% of the difference of the
+values between the cards.
+No points can be attached to a trade of cards with the same rarity.
+</p>
+<h4 id="!trade-accept">Accepting or declining a trade (!trade accept or decline)</h4>
+<p id="p75"><span class="pn"><a href="#p75">[75]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!trade accept/decline <i>player</i></kbd>
+</p>
+<p id="p76"><span class="pn"><a href="#p76">[76]</a></span>
+The other player can either use !trade accept <i>yourname</i>
+to accept the trade or !trade decline <i>yourname</i>
+to decline it.
+</p>
+<h4 id="!trade-check">Checking a trade (!trade check)</h4>
+<p id="p77"><span class="pn"><a href="#p77">[77]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!trade check <i>player</i></kbd>
+</p>
+<p id="p78"><span class="pn"><a href="#p78">[78]</a></span>
+!trade check is used to check whether there is a pending offer from the
+given player.
+Even though this is an informational command, it is not affected by the
+timeout on informational commands.
+<h4 id="!trade-accept">Cancelling a trade (!trade cancel)</h4>
+<p id="p79"><span class="pn"><a href="#p79">[79]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!trade cancel <i>player</i></kbd>
+</p>
+<p id="p80"><span class="pn"><a href="#p80">[80]</a></span>
+This command cancels your pending trade with the given player.
+Cancelling a trade that has already been accepted or declined is meaningless
+and does nothing.
+</p>
+<h4 id="!trade-list">Listing pending trades (!trade list)</h4>
+<p id="p81"><span class="pn"><a href="#p81">[81]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!trade list</kbd>
+</p>
+<p id="p82"><span class="pn"><a href="#p82">[82]</a></span>
+This command shows your pending trades.
+The list includes both trades that have been requested from you
+as well as trades that you've requested from others.
+</p>
+<h2 id="pudding">Pudding, the secondary currency</h2>
+<p id="p83"><span class="pn"><a href="#p83">[83]</a></span>
+Other than points, there is a secondary currency called &ldquo;pudding&rdquo;.
+Pudding can be used to buy booster packs;
+1&nbsp;pudding has the purchase power of 25&nbsp;points.
+However, pudding cannot be used for bountying cards.
+Unlike points, pudding expire after two months.
+Expiry happens on the eighth day of every month.
+Users with expiring pudding will be notified via whispers.
+This secondary currency is used as a reward for bets and set claims,
+both described further below.
+</p>
+<aside>
+<p>
+This may seem oddly specific to you.
+The truth is that bet rewards used to be booster packs, which was
+considered too rigid for scaling the rewards.
+Furthermore, a lot of sets were claimed very fast for the purpose of
+making a profit, which was seen as undesirable.
+A secondary currency just happened to be the most efficient way to
+resolve both of these problems.
+Sets don't exist anymore, so the only justification are historical
+reasons now.
+</p>
+</aside>
+<h3 id="!pudding">Checking your pudding balance (!pudding)</h3>
+<p id="p84"><span class="pn"><a href="#p84">[84]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!pudding</kbd>
+</p>
+<p id="p85"><span class="pn"><a href="#p85">[85]</a></span>
+The !pudding command shows the amount of pudding you have,
+namely the amount earned this month, the amount last month and the
+amount due for expiry.
+Even though this is an informational command, it is not affected by the
+timeout on informational commands.
+</p>
+<h3 id="!pudding-list">Listing boosters buyable with pudding (!pudding list)</h3>
+<p id="p86"><span class="pn"><a href="#p86">[86]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!pudding list</kbd>
+</p>
+<p id="p87"><span class="pn"><a href="#p87">[87]</a></span>
+This command shows a list of booster packs that can be bought with
+pudding and the amount of pudding required to buy them.
+Even though this is an informational command, it is not affected by the
+timeout on informational commands.
+</p>
+<h3 id="!pudding-booster">Buying a booster with pudding (!pudding booster / !pudding buy)</h3>
+<p id="p88"><span class="pn"><a href="#p88">[88]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!pudding booster <i>booster</i></kbd>
+<br>
+or
+<br>
+<kbd>!pudding buy <i>booster</i></kbd>
+</p>
+<p id="p89"><span class="pn"><a href="#p89">[89]</a></span>
+This command is used to buy the given type of booster with pudding.
+Expiring pudding are spent first.
+</p>
+<h3 id="!pudding-topup">Buying pudding with points (!pudding topup)</h3>
+<p id="p90"><span class="pn"><a href="#p90">[90]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!pudding topup <i>amount</i></kbd>
+</p>
+<p id="p91"><span class="pn"><a href="#p91">[91]</a></span>
+This command is used to buy the given <i>amount</i> of pudding using
+points,
+at a rate of 25&nbsp;points for 1&nbsp;pudding.
+Pudding bought this way will expire like any other kind of pudding.
+This command is meant to be used to buy a small amount of pudding if you are
+close to a new pack.
+<strong>It is not possible to convert pudding back to points.</strong>
+</p>
+<h2 id="!sendpoints">Points transfers (!sendpoints)</h2>
+<p id="p92"><span class="pn"><a href="#p92">[92]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!sendpoints <i>user</i> <i>amount</i> <i>reason</i></kbd>
+<br>
+then
+<br>
+<kbd>!sendpoints confirm <i>code</i></kbd>
+</p>
+<p id="p93"><span class="pn"><a href="#p93">[93]</a></span>
+Points transfers are available to move points between users.
+A points transfer consists of two stages:
+setup and confirmation.
+To set up a trade, use the <kbd>!sendpoints</kbd> command followed by the
+user to transfer to, the amount of points and the reason.
+In a second step, you will be prompted by the bot to use
+<kbd>!sendpoints confirm</kbd> with a confirmation code to ensure
+that you really wish to transfer the points.
+</p>
+<p id="p94"><span class="pn"><a href="#p94">[94]</a></span>
+<strong>Every transfer requires a reason</strong>;
+the reason can and should consist of more than one word.
+This restriction is there to prevent abuse of this feature.
+<strong>You will be charged the full amount of points as &ldquo;tax&rdquo;</strong>
+in addition to the actual amount transferred:
+So if you want to transfer 50,000&nbsp;points,
+you must enter <kbd>50000</kbd> as the <i>amount</i>,
+but pay 100,000&nbsp;points:
+50,000&nbsp;go to the recipient, 50,000&nbsp;are kept as tax.
+Points transfers that have not been confirmed will expire after an unknown
+amount of time, measured internally in minutes.
+If 1000&nbsp;points or more are successfully transferred,
+the recipient receives a whisper about the transaction.
+</p>
+<p id="p95"><span class="pn"><a href="#p95">[95]</a></span>
+Please make sure you are actively aware of the rules around points transfers
+before trying to use them:
+</p>
+<ol>
+  <li><b>list of acceptable reasons</b> (non-exhaustive):
+    <ol>
+      <li>paying above the disenchant price for a highly demanded card;</li>
+      <li>paying below the disenchant price for an unwanted card;</li>
+      <li><em>temporary</em> loans of up to three&nbsp;months;</li>
+      <li>renting hand space (this does not change the policy that the
+      current owner of a card is considered the owner for the purpose of
+      trading the card otherwise).</li>
+    </ol>
+  </li>
+  <li><b>list of unacceptable reasons</b> (non-exhaustive):
+    <ol>
+      <li>giveaways, even when quitting the game;</li>
+      <li>moving points off of alternate accounts (since alternate accounts themselves are prohibited);</li>
+      <li>compensation for any event/transfer outside the game,
+        in particular real money trade (&ldquo;RMT&rdquo;).</li>
+    </ol>
+  </li>
+</ol>
+<!-- TODO <div class="dead"> -->
+<h2 id="anniversary-2019-cmds">Event token commands</h2>
+<p id="p95a"><span class="pn"><a href="#p95a">[95a]</a></span>
+During the 2019 anniversary event, event tokens can be obtained.
+This section describes the commands available to make use of them
+(the &ldquo;token shop&rdquo;).
+</p>
+<h3 id="!tokenshop">Showing rewards (!tokenshop)</h3>
+<p id="p95b"><span class="pn"><a href="#p95b">[95b]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!tokenshop</kbd>
+</p>
+<p id="p95c"><span class="pn"><a href="#p95c">[95c]</a></span>
+Using <kbd>!tokenshop</kbd> with no arguments outputs a list of all
+rewards available to you and their cost as well as how many tokens you have.
+</p>
+<h3 id="!tokenshop-listpromos">Showing the list of available Promos (!tokenshop listpromos)</h3>
+<p id="p95d"><span class="pn"><a href="#p95d">[95d]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!tokenshop listpromos</kbd>
+</p>
+<p id="p95e"><span class="pn"><a href="#p95e">[95e]</a></span>
+This command gives you a link to the Promos available from the token shop.
+Note that not all Promos may be available.
+Some are excluded because their event is currently ongoing,
+others are excluded because they are arbitrarily available only to administrators (such as Marenthyu's [6535]).
+</p>
+<h3 id="!tokenshop-buy">Buying an item from the token shop (!tokenshop buy)</h3>
+<p id="p95f"><span class="pn"><a href="#p95f">[95f]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!tokenshop buy <i>ID</i></kbd>
+<br>or<br>
+<kbd>!tokenshop buy special</kbd>
+<br>or<br>
+<kbd>!tokenshop buy handupgrade</kbd>
+</p>
+<p id="p95g"><span class="pn"><a href="#p95g">[95g]</a></span>
+This command buys a certain reward.
+If <kbd>special</kbd> is specified, you buy a Special card;
+the details are to be filled in with the <kbd>!tokenshop special</kbd> commands.
+If <kbd>handupgrade</kbd> is specified, you buy a hand space upgrade,
+increasing your total hand spaces by 1;
+this upgrade does not reset your progress towards your next regular hand space
+or its cost, but instead is a bonus outside the regular hand space system.
+Each of these can only be bought once.
+</p>
+<p id="p95h"><span class="pn"><a href="#p95h">[95h]</a></span>
+Otherwise, a <i>waifu ID</i> of a Promo must be specified that is on the list of available Promos.
+The cost for a Promo starts at 10&nbsp;tokens and increases by another 10.
+Up to five&nbsp;Promos may be bought, capping at 50&nbsp;tokens for the final Promo.
+</p>
+<h3 id="!tokenshop-special">Configuring your Special card (!tokenshop special)</h3>
+<p id="p95i"><span class="pn"><a href="#p95i">[95i]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!tokenshop special name <i>name</i></kbd>, then<br>
+<kbd>!tokenshop special series <i>series</i></kbd>, then<br>
+<kbd>!tokenshop special image <i>URL</i></kbd>, then<br>
+<kbd>!tokenshop special confirm</kbd><br>
+<strong>These are <em>four separate</em> commands.</strong>
+</p>
+<p id="p95j"><span class="pn"><a href="#p95j">[95j]</a></span>
+Once you have bought your Special with <kbd>!tokenshop buy special</kbd>,
+you can use these commands to configure the Special card you want.
+The commands can be issued in any order, but the <kbd>confirm</kbd> subcommand
+must be used last.
+</p>
+<p id="p95k"><span class="pn"><a href="#p95k">[95k]</a></span>
+The <a href="https://pastebin.com/QFJXS8Ce">&ldquo;usual rules&rdquo;</a> for character
+selection and image choice apply.
+In particular, this means that you may not have
+an excessively lewd image,
+an excessively low-quality image,
+a original characters/fursonas,
+male characters or
+novelty cards that do not depict a character at all.
+You <em>may have two characters</em> on the card.
+See <i>mutatis mutandis</i> <a href="#p153">&para;&nbsp;153</a> for details and technical requirements.
+</p>
+<h3 id="!tokenshop-gacha-roll">Tokenshop gacha (!tokenshop gacha roll)</h3>
+<p id="p95l"><span class="pn"><a href="#p95l">[95l]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!tokenshop gacha roll</kbd>
+</p>
+<p id="p95m"><span class="pn"><a href="#p95m">[95m]</a></span>
+Any leftover tokens that you cannot or do not want to turn into the prizes
+mentioned above can be rolled on the tokenshop gacha.
+Failure to do so manually will cause the tokens to be forcibly fed into the
+gacha on 2019-09-08 at 00:00&nbsp;UTC.
+</p>
+<p id="p95n"><span class="pn"><a href="#p95n">[95n]</a></span>
+The gacha rewards were divided into five tiers.
+First, the tier is picked.
+After that, a reward is picked from the tier.
+When rolling the gacha with !tokengacha,
+you could thus get:
+</p>
+<table>
+  <tr><th>Tier</th><th>Possible Rewards</th></tr>
+  <tr><td>1</td><td>super booster pack, 40 pudding, 800 points</td></tr>
+  <tr><td>2</td><td>super booster pack, 40 pudding, 800 points</td></tr>
+  <tr><td>3</td><td>halfmeme booster pack, 80 pudding, 1600 points, freeultra</td></tr>
+  <tr><td>4</td><td>premium booster pack, 120 pudding, 2400 points</td></tr>
+  <tr><td>5</td><td>ultimate booster pack, 200 pudding, 4000 points, freelegendary</td></tr>
+  <tr><td>6</td><td>jumbultimate booster pack, 20,000 points, freemythical + 5000 points</td></tr>
+</table>
+<!-- TODO </div> --> <!-- class=dead -->
+<h2 id="betting">Betting</h2>
+<p id="p96"><span class="pn"><a href="#p96">[96]</a></span>
+The bet system allows streamers to host betting contests for their
+speedruns.
+Betting yields a reward in pudding.
+Entering does not require any kind of entry fee;
+there is no drawback to placing a bet.
+The time used to check bets against is the time between !bet start and
+!bet end,
+<em>not</em>
+what the timer on the screen says.
+This means that an actually accurate guess may be wrong by up to several
+seconds.
+Bets with less than five&nbsp;participants will not be paid out;
+streamers will be warned about this, but may override it.
+The betting system is highly regulated.
+The full rules can be found on the Nepcord in the #rules channel.
+They may change without announcement;
+check them frequently.
+</p>
+<p id="p97"><span class="pn"><a href="#p97">[97]</a></span>
+The final bet result may be changed by the bot administrators if it is
+off by more than 4&nbsp;seconds from the time shown on the stream.
+</p>
+<p id="p98"><span class="pn"><a href="#p98">[98]</a></span>
+There are two kinds of
+<b>big prizes</b>:
+Being accurate to 10&nbsp;ms guarantees a special kind of booster pack;
+being accurate to 1&nbsp;s guarantees a free Mythical card,
+not counting towards pity.
+The 10&nbsp;ms and 1&nbsp;s prizes can only be obtained if the final bet time is
+at least 30&nbsp;minutes.
+Calculating payout in pudding is relatively complex;
+the summarized version is that relatively accurate guesses are generally
+rewarded,
+but being off by more than double the run time of the bet is punished
+with halving the payout.
+</p>
+<aside>
+<p>
+It is currently unknown what this special kind of booster pack is.
+For historical reasons of how the bet system used to work in early-mid
+2018, it is commonly referred to as the &ldquo;tier&nbsp;7&rdquo; reward.
+</p>
+</aside>
+<p id="p99"><span class="pn"><a href="#p99">[99]</a></span>
+<b>
+You can skip the rest of this section unless you really need to
+calculate bet results yourself.
+</b>
+The calculation works as follows:
+First, the minimum and maximum prizes are determined.
+Two values are first taken from the database,
+<i>betMinPrize</i> and <i>betMaxPrize</i>.
+The values are misnomers as they do not actually reflect the true
+minimum and maximum prizes.
+<i>betMinPrize</i> is 10.
+<i>betMaxPrize</i> is 20.
+betMaxPrize is then multiplied by the number of betting players (the
+entries) divided by 10, plus one; if this multiplier is more than 2
+(i.e. if more than ten players entered the bet), it is set to 2 instead.
+Then the amount of pudding is the sum of the minimum prize plus the
+difference between the maximum and the minimum prize multiplied by the
+the inverse place (entries - placement);
+this is then divided by the number of entries minus one;
+an additional division by&nbsp;1.4 occurs for everybody in the &ldquo;losing&rdquo;
+half of the bet.
+The puding for the first place are multiplied by&nbsp;1.3.
+Everybody's results are then multiplied by&nbsp;1.5 if the bet takes place in
+the HDNMarathon channel <em>and</em> the marathon boost is applied.
+An additional multiplier of&nbsp;1.5 is applied if the bet has run at least
+30&nbsp;minutes and the bet is accurate to the run time of the bet in
+milliseconds divided by&nbsp;120;
+this is roughly equivalent to being accurate to 15&nbsp;seconds per hour.
+After these modifiers, the payout is halved for guesses that are off by
+more than double the run time of the bet.
+<!--
+For example, take a bet that ran 3&nbsp;h, 5&nbsp;min, 10&nbsp;s and 0&nbsp;ms (\(*Dt)
+and a bet B of 3:12:42.666 coming in third (p) out of 17&nbsp;bets (E) to
+calculate the pudding (P).
+The bet was not in the HDNMarathon channel and is not highly accurate,
+so the multipliers (M) is going to be 1.
+The bet was in the <i>lower</i> half, so the penalty (P) is 1.4.
+.EQ I
+{\(*D t} = 11110000, h = {\(*D t} over 3600000 = 3.086 nothing 1 bar ,
+B = 11562666, p = 3, E = 17, M = 1, P = 1.4
+.EN
+.EQ I
+{P sub max} mark = betMaxPrize cdot min({{1 + E} over 10}, 2) = 32 cdot 2 = 64
+.EN
+.EQ I
+{P sub base} lineup
+= betMinPrize + {{({P sub max} - betMinPrize) cdot (E - p)} over {E - 1} over P}
+= 10 + {{(64 - 10) cdot (17 - 3)} over 16 over 1.4}
+= 43.75
+.EN
+.EQ I
+P lineup
+= round({P sub base} cdot M) = round(43.75 cdot 1) = 44
+.EN
+-->
+</p>
+<p id="p100"><span class="pn"><a href="#p100">[100]</a></span>
+The broadcaster is paid in pudding:
+The points awarded is scaled to the run length.
+For every hour of the run, the broadcaster is awarded 30&nbsp;pudding.
+This is mathematically rounded to the next pudding.
+The payout is capped twofold:
+</p>
+<ol>
+  <li>A broadcaster cannot get more than 3000&nbsp;pudding per channel per
+  calendar month,
+  the equivalent of 100&nbsp;paid-out hours.</li>
+  <li>A broadcaster cannot get more than 720&nbsp;pudding per bet,
+  the equivalent of a run spanning 24&nbsp;hours.
+  If a run goes on for more than 24&nbsp;hours,
+  only the 720&nbsp;pudding paid out count towards the monthly pudding cap.</li>
+</ol>
+<aside>
+<p>
+The calendar month depends on the server time zone.
+The server time zone is normally in CET (UTC+1);
+adjust for daylight savings in <em>Germany</em>.
+A bet that starts before the next calendar month
+but ends after the start of the next calendar month
+still counts towards last month's cap.
+</p>
+</aside>
+<!--
+An example for a run of 3&nbsp;h, 5&nbsp;min, 10&nbsp;s and 0&nbsp;ms, where \(*Dt is
+specified in milliseconds:
+.EQ I
+{\(*D t} = 11110000, h = {\(*D t} over 3600000 = 3.086 nothing 1 bar ,
+P sub base = 30, P sub max = 720
+.EN
+.EQ I
+P sub scale mark
+= round(min(max(h, 1) cdot {P sub base}, P sub max))
+.EN
+.EQ I
+P sub scale mark
+= round(min(max(3.086, 1) cdot 30, 720))
+.EN
+.EQ I
+P sub scale lineup
+= round(min(92.58, 720))
+= round(92.58)
+= 93
+.EN
+-->
+<h3 id="!bet">Placing a bet (!bet)</h3>
+<p id="p101"><span class="pn"><a href="#p101">[101]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!bet <i>h:mm:ss[.ms]</i></kbd>
+</p>
+<p id="p102"><span class="pn"><a href="#p102">[102]</a></span>
+The time to bet on is given in hours, minutes and seconds.
+Milliseconds are optional.
+Specifying the hour field is required, even if you guess a time with 0
+hours;
+in this case, you would have to use e.g. 0:42:09.69.
+Often, streamers will give a time estimate.
+They are not required to.
+If no estimate is given, try going through their old videos for some
+previous times.
+It is possible to overflow the minute and second fields, so that 0:00:69
+would actually count as a bet for 0:01:09.
+</p>
+<h3 id="!bet-streamer">Hosting a bet as a streamer (!bet open/start/end)</h3>
+<p id="p103"><span class="pn"><a href="#p103">[103]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!bet open</kbd>
+<br>
+<i>(wait for bets, at least 5&nbsp;minutes)</i>
+<br>
+<kbd>!bet start</kbd>
+<br>
+<i>(start the run)</i>
+<br>
+<i>(finish the run)</i>
+<br>
+<kbd>!bet end</kbd>
+</p>
+<p id="p104"><span class="pn"><a href="#p104">[104]</a></span>
+As a streamer with NepNepBot in your channel, you can host bets.
+You must give people at least five&nbsp;minutes to enter their bets.
+Please refer to the betting rules on #rules in the Nepcord.
+The admins are informed automatically when your bet finished;
+they will verify and pay it out as soon as possible.
+Your viewers may have to wait up to 24&nbsp;hours for their bet payout.
+It may be helpful to point that out up-front.
+</p>
+<h3 id="!bet-cancel">Cancelling a bet (!bet cancel)</h3>
+<p id="p105"><span class="pn"><a href="#p105">[105]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!bet cancel</kbd>
+</p>
+<p id="p106"><span class="pn"><a href="#p106">[106]</a></span>
+Cancelling a bet causes the bet to be forcibly closed.
+It cannot be paid out.
+The bets will be cleared, so you cannot !bet start immediately
+afterwards.
+Use this if you want to abort a run (and possibly start a run of a
+<em>different</em> category).
+Please use this command with some degree of caution;
+cancelling bets too often may be punishable.
+</p>
+<h3 id="!bet-forcereset">Resetting a bet (!bet forcereset)</h3>
+<p id="p107"><span class="pn"><a href="#p107">[107]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!bet forcereset</kbd>
+</p>
+<p id="p108"><span class="pn"><a href="#p108">[108]</a></span>
+A forcereset resets the bet to &ldquo;open&rdquo; status,
+without clearing the bets.
+That way, you can re-attempt a run that started badly
+without everyone having to re-enter their bets.
+You can use forcereset three&nbsp;times per seven&nbsp;days.
+The seven&nbsp;days begin when you issue the first forcereset.
+</p>
+<p id="p109"><span class="pn"><a href="#p109">[109]</a></span>
+To re-attempt the run, you
+<b>still must use !bet start again</b>.
+<h2 id="sets">Sets</h2>
+<p id="p110"><span class="pn"><a href="#p110">[110]</a></span>
+Sets are a mechanic that reward collecting certain sets of cards.
+<!-- There are two kinds of sets: -->
+<!-- regular sets and rarity sets. -->
+<!-- A regular set consists of a themed list of cards. -->
+The full list can be found at
+<a href="https://waifus.de/sets">https://waifus.de/sets</a>.
+</p>
+<!-- .br -->
+<!-- The rarity set changes every month and requires obtaining a certain -->
+<!-- number of cards with a given rarity within that month. -->
+<h3 id="!sets">Viewing the list of sets (!sets)</h3>
+<p id="p111"><span class="pn"><a href="#p111">[111]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!sets</kbd>
+</p>
+<p id="p112"><span class="pn"><a href="#p112">[112]</a></span>
+This command sends you the link to the full list of sets.
+Even though this is an informational command, it is not affected by the
+timeout on informational commands.
+</p>
+<!-- ._H 3 "Viewing the Monthly Rarity Set (!sets rarity)" -->
+<!-- .SO -->
+<!-- !sets rarity -->
+<!-- .PP -->
+<!-- This command shows the monthly rarity sets and your progress made -->
+<!-- towards them. -->
+<!-- Even though this is an informational command, it is not affected by -->
+<!-- the -->
+<!-- timeout on informational commands. -->
+<h3 id="!sets-claim">Claiming sets (!sets claim)</h3>
+<p id="p113"><span class="pn"><a href="#p113">[113]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!sets claim</kbd>
+</p>
+<p id="p114"><span class="pn"><a href="#p114">[114]</a></span>
+This command goes through the list of sets and checks if you meet the
+criteria to claim any of them.
+A set can only be claimed by one person.
+Like bets, set rewards are paid in the secondary currency &ndash; pudding.
+Claiming a set will yield the associated pudding reward.
+The pudding reward will regularly be much less than the combined values
+of the cards;
+it is thus generally only worth going after a set if you find yourself
+pursuing many of the cards for yourself or if you happen to get a lucky
+booster getting you close to one.
+There is a <b>cooldown of one&nbsp;week between claims</b> for the same set.
+</p>
+<p id="p115"><span class="pn"><a href="#p115">[115]</a></span>
+The first claimer gets <b>double the normal award</b> and is able to
+<b>change the badge image</b> with <kbd>!setbadge</kbd>.
+</p>
+<h3 id="!set-checkid">Getting the set badge ID (!set checkid)</h3>
+<p id="p116"><span class="pn"><a href="#p116">[116]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!set checkid <i>name</i></kbd>
+</p>
+<p id="p117"><span class="pn"><a href="#p117">[117]</a></span>
+This command gets the ID of the set for the given name.
+The set ID is used for the <kbd>!setbadge</kbd> command
+(and can also be seen on your profile).
+</p>
+<h3 id="!setbadge">Setting the badge image (!setbadge)</h3>
+<p id="p118"><span class="pn"><a href="#p118">[118]</a></span>
+The <kbd>!setbadge</kbd> command works the same as <kbd>!godimage</kbd>;
+see <a href="#p127">&para;&para;&nbsp;127&nbsp;et&nbsp;seqq.</a> for details,
+just use the <kbd>!setbadge</kbd> command instead.
+</p>
+<p id="p119"><span class="pn"><a href="#p119">[119]</a></span>
+The following differences apply:
+</p>
+<ul>
+  <li>The resolution of the image must be square, i.e. its width in pixels must be equal to its height in pixels.</li>
+  <li>The size requirement reduced down to only 200&nbsp;KiB.</li>
+</ul>
+<h2 id="miscellaneous-commands">Miscellaneous commands</h2>
+<h3 id="!redeem">Tokens (!redeem)</h3>
+<p id="p120"><span class="pn"><a href="#p120">[120]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!redeem <i>token</i></kbd>
+</p>
+<p id="p121"><span class="pn"><a href="#p121">[121]</a></span>
+With !redeem, tokens (commonly called &ldquo;codes&rdquo;) can be used to obtain
+various benefits.
+Tokens are frequently given out on events.
+Redeeming a token can yield pudding, badges, booster packs and/or
+individual cards.
+In almost all cases, tokens expire.
+After expiration, the token can no longer be redeemed.
+Tokens can only be used once.
+Known public redeem codes are:
+<table>
+  <tr><th>Code</th><th>Reward</th></tr>
+  <tr><td>1-800-tcg-waifu</td><td>1000&nbsp;points</td></tr>
+  <tr><td>50kusers</td><td>1000&nbsp;points</td></tr>
+  <tr><td>blazinghard</td><td>the Blazed Hard badge</td></tr>
+  <tr><td>freescam</td><td>a scam booster pack</td></tr>
+  <tr><td>memes</td><td>10&nbsp;points</td></tr>
+  <tr><td>newcomerpack</td><td>250&nbsp;points and a standard booster</td></tr>
+  <tr><td>thesafeisleaking</td><td>a jumbo booster pack</td></tr>
+  <tr><td>xorhashisanadminokay</td><td>1337&nbsp;points</td></tr>
+  <tr><td>yourwaifu</td><td>card [1][common] Trash</td></tr>
+</table>
+</p>
+<h3 id="!whisper">Testing whispers (!whisper)</h3>
+<p id="p122"><span class="pn"><a href="#p122">[122]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!whisper</kbd>
+</p>
+<p id="p123"><span class="pn"><a href="#p123">[123]</a></span>
+In order for whispering to work, you must follow NepNepBot on Twitch.
+This command sends a test whisper to ensure that whispers can, in fact,
+be sent.
+</p>
+<h3 id="!upgrade">Hand upgrade (!upgrade)</h3>
+<p id="p124"><span class="pn"><a href="#p124">[124]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!upgrade [buy]</kbd>
+</p>
+<p id="p125"><span class="pn"><a href="#p125">[125]</a></span>
+!upgrade has two functions.
+If used with no arguments, it will show you how much a forced hand
+upgrade costs;
+even though this is an informational command, it is not subject to the
+timeout on informational commands.
+Additionally, if there has been any mistake calculating your hand spaces,
+any invocation of !upgrade will fix it.
+</p>
+<p id="p126"><span class="pn"><a href="#p126">[126]</a></span>
+If used with the argument &ldquo;buy&rdquo;, it will upgrade your hand in exchange
+for 50% of the spending required to normally reach the next hand space
+threshold.
+Buying a hand upgrade increases your spending as if you had actually
+bought the equivalent value of boosters.
+</p>
+<h3 id="!de">Disenchanting a card (!disenchant)</h3>
+<p id="p127"><span class="pn"><a href="#p127">[127]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!disenchant <i>ID</i> [<i>ID</i> ...]</kbd>
+<br>
+or
+<br>
+<kbd>!de <i>ID</i> [<i>ID</i> ...]</kbd>
+</p>
+<p id="p128"><span class="pn"><a href="#p128">[128]</a></span>
+!disenchant disenchants cards.
+If you have multiple of the same card, this command will disenchant only
+as many cards as specified; that is, &ldquo;!de 1984&rdquo; disenchants one of 1984,
+even if there are multiple in your hand.
+When disenchanting a card of Mythical rarity or above, or a promoted card, a
+confirmation prompt will be shown.
+The same applies to Promo and Special cards.
+There is normally no reason to disenchante a Promo or Special card;
+no points will be awarded and no hand space is gained.
+The community will likely loathe you for disenchanting a Special card.
+</p>
+<p id="p129"><span class="pn"><a href="#p129">[129]</a></span>
+Multiple cards can be disenchanted in one go by adding each of their card IDs
+or waifu IDs as a separate argument.
+If a confirmation is required for one card, it must be added to the
+very end of the list.
+</p>
+<p id="p130"><span class="pn"><a href="#p130">[130]</a></span>
+For example, if you have only one card for a given waifu
+(e.g. waifu ID&nbsp;1984), &ldquo;!de 1984&rdquo; will disenchant that.
+If you instead have 2&nbsp;cards of the same ID, you will have to specify the <i>card ID</i>
+(e.g. card ID&nbsp;1012123) like so: &ldquo;!de 1012123&rdquo;.
+</p>
+<h3 id="!nepleave">Making the bot leave your channel (!nepleave)</h3>
+<p id="p131"><span class="pn"><a href="#p131">[131]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!nepleave</kbd>
+</p>
+<p id="p132"><span class="pn"><a href="#p132">[132]</a></span>
+The !nepleave command makes Nepnepbot leave your channel.
+You must have the bot in your channel to use this command.
+<strong>
+You will need the help of an admin to get the bot back.
+Do not use this command unless you really want to leave the community.
+</strong>
+</p>
+<h3 id="!nepcord">Waifu TCG Discord server link (!nepcord)</h3>
+<p id="p133"><span class="pn"><a href="#p133">[133]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!nepcord</kbd>
+</p>
+<p id="p134"><span class="pn"><a href="#p134">[134]</a></span>
+!nepcord makes NepNepBot reply with a link to the Waifu&nbsp;TCG Discord
+server.
+If you are interested in at least semi-seriously following the game,
+joining and lurking there is highly recommended.
+Changes to the game and ongoing events are also exclusively announced
+through that Discord server.
+</p>
+<h3 id="!fixwaifu">Link to fix suggestion form (!fixwaifu)</h3>
+<p id="p135"><span class="pn"><a href="#p135">[135]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!fixwaifu</kbd>
+</p>
+<p id="p136"><span class="pn"><a href="#p136">[136]</a></span>
+!fixwaifu makes NepNepBot reply with a link to a form that can be used
+to suggest fixes to a card.
+Please study the rules on the form before suggesting a fix.
+</p>
+<p id="p137"><span class="pn"><a href="#p137">[137]</a></span>
+Issues that warrant a fix include:
+</p>
+<ul>
+  <li>wrong name or series (missing accents, inconsistent wrong name ordering
+  in the same series),</li>
+  <li>image issues (image is of wrong character, exceedingly low quality,
+  broken link, subtitles in image).</li>
+</ul>
+<h3 id="!giveme">Give me (!giveme)</h3>
+<p id="p138"><span class="pn"><a href="#p138">[138]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!giveme</kbd>
+</p>
+<p id="p139"><span class="pn"><a href="#p139">[139]</a></span>
+This command just gets the reply &ldquo;No.&rdquo; from the bot.
+!giveme used to instead yield &ldquo;Sorry, you are not an admin.&rdquo;
+Originally, the command dropped a card of the requested rarity.
+It was used to test the drop/rarity algorithm.
+</p>
+<h3 id="!sorthand">Sorting your hand (!sorthand)</h3>
+<p id="p140"><span class="pn"><a href="#p140">[140]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!sorthand <i>ID</i> <i>sortnum</i></kbd>
+</p>
+<p id="p141"><span class="pn"><a href="#p141">[141]</a></span>
+This command allows reordering cards in your hand.
+Cards are normally sorted first by waifu ID, then by rarity, then by card ID,
+each in ascending order.
+The <kbd>!sorthand</kbd> command allows adding a factor that is considered
+before the IDs, the sort number.
+Cards are sorted in ascending order according to the sort number first,
+i.e. lowest is listed first.
+Sort numbers can be in the range of -32768 to 32767.
+Cards that have no sort number explicitly set will have a sort number of 32000,
+and the waifu IDs and rarity card IDs act as tie breakers in that case.
+(It's probably easier to actually fiddle around with it to understand how it works.)
+</p>
+<h3 id="!sorthand-reset">Resetting your hand sorting (!sorthand reset)</h3>
+<p id="p142"><span class="pn"><a href="#p142">[142]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!sorthand reset</kbd>
+</p>
+<p id="p143"><span class="pn"><a href="#p143">[143]</a></span>
+This command undoes any changes to your hand sorting made with
+<kbd>!sorthand</kbd>.
+The order will go back to the regular order as if you had never used
+<kbd>!sorthand</kbd> in the first place.
+</p>
+<h2 id="profiles">Profiles</h2>
+<p id="p144"><span class="pn"><a href="#p144">[144]</a></span>
+Every user can have a profile.
+The profile is visible on the web.
+It contains the list of badges, a description and a favorite card.
+</p>
+<p id="p145"><span class="pn"><a href="#p145">[145]</a></span>
+Badges can be obtained either through redeem codes or through special
+events.
+Because badges are not part of your hand, they take no hand space.
+The alternate reality game (ARG) is one of the major sources of badges.
+The following badges are known; the set badges are not listed for
+reasons of readability:
+</p>
+<table>
+  <tr><th>Badge</th><th>Awarded for</th><th>Unique</th></tr>
+  <tr><td>2018</td><td>redeem code (valid for 20&nbsp;min. on 2018-01-01)</td><td>no</td></tr>
+  <tr><td>2019</td><td>redeem code (&ldquo;OnwardsTo2019&rdquo;) (valid for 1&nbsp;hour on 2019-01-01)</td><td>no</td></tr>
+  <tr><td>Beta Participant</td><td>active in the earliest days of the bot</td><td>no</td></tr>
+  <tr><td>Blazed Hard</td><td>redeem code (&ldquo;BlazingHard&rdquo;)</td><td>no</td></tr>
+  <tr><td>Brave New World</td><td>automatically awarded to players active before the July 2019 update</td><td>no</td></tr>
+  <tr><td>Early Supporter</td><td>redeem code (valid around 2018-03-31)</td><td>no</td></tr>
+  <tr><td>EMERGENCY REQUEST</td><td>redeem code (ARG)</td><td>no</td></tr>
+  <tr><td>Eryn's Most Wanted</td><td>awarded for unknown reasons</td><td>yes (Pikadude9001)</td></tr>
+  <tr><td>Fixer</td><td>submitting an accepted fix for a waifu via https://waifus.de/fixes</td><td>no</td></tr>
+  <tr><td>Glimmer of Hope</td><td>Being down in the dumps</td><td>yes (MattyPlaysSRL)</td></tr>
+  <tr><td>HASHIRE SORI YO KAZE NO YOU NI TSUKIMIHARA WO PADORU PADORU</td><td>redeem code (&ldquo;XMAS-TCG-2018&rdquo;) (2018-12-24 through 2018-12-26)</td><td>no</td></tr>
+  <tr><td>Miku's Mercy</td><td>meeting an administrator in real life</td><td>no</td></tr>
+  <tr><td>NOT a Bot admin</td><td>clarifying that user is not an administrator</td><td>yes (xorhash)</td></tr>
+  <tr><td>OUR Community</td><td>meeting any TCG player in real life</td><td>no</td></tr>
+  <tr><td>Security Breach</td><td>breaking the ARG or TCG security</td><td>no</td></tr>
+  <tr><td>The Beeping Noise</td><td>redeem code (ARG)</td><td>no</td></tr>
+  <tr><td>The Beginning</td><td>redeem code (ARG)</td><td>no</td></tr>
+  <tr><td>The First God</td><td>drawing the first base God card</td><td>yes (angelic2142)</td></tr>
+  <tr><td>The Listener</td><td>redeem code (ARG)</td><td>no</td></tr>
+  <tr><td>The Midway Point</td><td>redeem code (ARG)</td><td>no</td></tr>
+  <tr><td>The second one</td><td>redeem code (ARG)</td><td>no</td></tr>
+</table>
+<h3 id="!profile-description">Setting a profile description (!profile description)</h3>
+<p id="p146"><span class="pn"><a href="#p146">[146]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!profile description <i>new description</i></kbd>
+</p>
+<p id="p147"><span class="pn"><a href="#p147">[147]</a></span>
+This command sets a new description.
+The Twitch maximum message length sets limits to this.
+No form of markup (HTML, Markdown, etc.) can be used.
+Emoji work.
+</p>
+<h3 id="!profile-favorite">Picking a favorite card (!profile favorite)</h3>
+<p id="p148"><span class="pn"><a href="#p148">[148]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!profile favorite <i>ID</i></kbd>
+</p>
+<p id="p149"><span class="pn"><a href="#p149">[149]</a></span>
+This command sets a card as your favorite card.
+If you own one or more copies of the card,
+it will show at the highest rarity that you have.
+You can generally choose any card; however,
+you can only set a Promo or Special card as your favorite card if you
+actually own the card.
+<h2 id="godimages">Images for promoted god cards</h2>
+<p id="p150"><span class="pn"><a href="#p150">[150]</a></span>
+As noted previously, cards can be promoted.
+If a card is promoted to God rarity,
+it is possible to request an image change.
+The request is cancelled if the card is disenchanted or traded while the
+request is still pending.
+Image requests are not possible for cards whose base rarity is God as
+well as for Promos and Specials &ndash; even if you are the sole holder of
+a Promo card.
+</p>
+<h3 id="!godimage-request">Requesting a change (!godimage request<!-- / !godimage requestglobal-->)</h3>
+<p id="p151"><span class="pn"><a href="#p151">[151]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!godimage request <i>ID</i> <i>link</i></kbd>
+<!-- OBSOLETE
+<br>
+<kbd>!godimage requestglobal <i>ID</i> <i>link</i></kbd>
+-->
+</p>
+<p id="p152"><span class="pn"><a href="#p152">[152]</a></span>
+These commands requests an image change for the card identified
+by the given ID.
+<!-- OBSOLETE
+The image change can be either individual or global.
+-->
+</p>
+<p id="p153"><span class="pn"><a href="#p153">[153]</a></span>
+The following
+<b>
+base requirements
+</b>
+must be followed when issuing a request:
+</p>
+<ol>
+  <li>The card must be eligible for an image change.
+  This excludes base God cards and the Saimoe cards (waifu IDs&nbsp;2008&ndash;2018).</li>
+  <li> The image depicts the correct character.
+  Alternate forms of a character are okay if no card for it currently
+  exists.
+  For example, that means Black Sister is not allowed as a godimage for
+  Uni because she exists as card [76];
+  however, as a counterexample, illayaya was granted Arfoire's DOS form as
+  a godimage on [100].</li>
+  <li>The image may not contain two or more characters.</li>
+  <li>The image must have at least reasonable quality.
+    <!-- OBSOLETE
+  Most likely, the quality requirements are more stringent for global
+  requests.
+    -->
+  </li>
+  <li>The image may not be too much of a meme.
+  It is unknown what the limits of that are.</li>
+  <li>Regarding how explicit a card may be, mild nudity appears to be okay.</li>
+  <li>Animated gifs are okay as long as they follow the rules outlined above.</li>
+  <li>The request must be in line with the Twitch content policy.
+  In particular, this means that porn or overly sexually suggestive
+  images, gore and illegal content are not permitted.
+  <strong>
+  Requesting a card that violates these guidelines will likely get you
+  banned.
+  </strong>
+  The bot tells admins: &ldquo;If it is porn/illegal/etc, just ban the user.&rdquo;
+  It is thus strongly recommended you manually talk to an admin before you
+  put in the request if you are even just the slightest bit unsure if it
+  is acceptable.
+  Do not believe that the administrators will assume your request is in
+  good faith.</li>
+  <li>The aspect ratio of the image may not exceed 16:9 in either direction,
+  i.e. 9 over 16 &lt;= width over height &lt;= 16/9.</li>
+  <li>The image's file size must not exceed 2&nbsp;MiB (2,097,152&nbsp;bytes).</li>
+  <li>The image <b>must be hosted on imgur</b>.
+  Other image hosts will not work.</li>
+  <li>If you have changed the godimage before,
+    your last (accepted) change request for the same card was
+    more than 30&nbsp;days ago.
+    This is counted starting from <em>the time of request</em>,
+    not the time the request was accepted.</li>
+</ul>
+<aside>
+<p>
+Use the cards promoted to God in the hands of users Flutter and
+KisaraShera as a reference point for nudity.
+</p>
+</aside>
+<p id="p154"><span class="pn"><a href="#p154">[154]</a></span>
+Individual image changes affect <em>only</em> that particular card.
+Trading the card with a changed image will retain the changed image.
+An individual image change is requested with !godimage request.
+</p>
+<p id="p155"><span class="pn"><a href="#p155">[155]</a></span>
+Global image changes affect
+<em>all</em>
+copies of that card.
+The change affects the waifu herself, rather than the card.
+<!-- OBSOLETE
+A global image change is requested with !godimage requestglobal.
+-->
+</p>
+<p id="p156"><span class="pn"><a href="#p156">[156]</a></span>
+<!-- OBSOLETE
+However, global image changes are generally only granted if the picture
+is suitable as a change for the card itself;
+in particular, this is likely the case if the replacement is of
+obviously greater quality than the current image.
+A request for a global change may be downgraded to an individual change
+if it is deemed unsuitable as a global change.
+The inverse is not true:
+A request for an individual change cannot be upgraded to a global
+change.
+-->
+<i>(obsoleted)</i>
+</p>
+<p id="p157"><span class="pn"><a href="#p157">[157]</a></span>
+You will be notified via whisper about whether your accept was accepted
+or denied.
+Denials always have an explicit reasoning attached.
+</p>
+<h3 id="!godimage-list">Listing requested changes (!godimage list)</h3>
+<p id="p158"><span class="pn"><a href="#p158">[158]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!godimage list</kbd>
+</p>
+<p id="p159"><span class="pn"><a href="#p159">[159]</a></span>
+You can list your pending image change requests with this command.
+Even though this is an informational command, it is not subject to the
+timeout on informational commands.
+</p>
+<h3 id="!godimage-cancel">Cancelling a request (!godimage cancel)</h3>
+<p id="p160"><span class="pn"><a href="#p160">[160]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!godimage cancel <i>ID</i></kbd>
+</p>
+<p id="p161"><span class="pn"><a href="#p161">[161]</a></span>
+This command cancels a pending request for the given waifu or card
+identified by the given ID.
+Because the admins receive a notification about every request and
+cancellation, it is recommended that you think about your request before
+you make it.
+<h2 id="alerts">Streamlabs alerts</h2>
+<p id="p162"><span class="pn"><a href="#p162">[162]</a></span>
+Streamlabs alerts allow streamers to show on-stream notifications about
+cards being drawn.
+No alerts will be sent when Super cards and below are drawn.
+Only streamers who have the bot in their channel can use these alerts
+for their streams.
+Most mainstream streaming software, such as the Open Broadcaster
+Software (OBS), can make use of the alerts.
+</p>
+<aside>
+<p>
+Note that a JSON API for the same data is available on
+<a href="https://waifus.de/pullfeed">the pullfeed at
+  https://waifus.de/pullfeed</a>.
+You could use this to make your own alerts for other streaming software.
+If you have some programming knowledge,
+consult the source code for details.
+</p>
+</aside>
+<p id="p163"><span class="pn"><a href="#p163">[163]</a></span>
+If you have never set up alerts with Streamlabs,
+look into the &ldquo;Alert Box&rdquo; settings in the Streamlabs dashboard.
+The widget URL can be browser sourced in OBS, xsplit etc.
+</p>
+<h3 id="!alerts-setup">Setting up streamlabs alerts (!alerts setup)</h3>
+<p id="p164"><span class="pn"><a href="#p164">[164]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!alerts setup</kbd>
+</p>
+<p id="p165"><span class="pn"><a href="#p165">[165]</a></span>
+To start setting up the alerts, use the !alerts setup command anywhere.
+You will then receive a whisper on Twitch with a link.
+Click the link, then authorize the app.
+The app will only request the permission to send alerts to your stream.
+<strong>
+If you deauthorize the app with Streamlabs,
+but later decide that you want the alerts again,
+you must contact a bot administrator so that !alerts setup works again.
+</strong>
+</p>
+<h3 id="!alerts-test">Testing streamlabs alerts (!alerts test)</h3>
+<p id="p166"><span class="pn"><a href="#p166">[166]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!alerts test [<i>rarity</i>]</kbd>
+<br>
+<kbd>!alerts test set</kbd>
+</p>
+<p id="p167"><span class="pn"><a href="#p167">[167]</a></span>
+Once you have authorized the app through Streamlabs,
+you can test the alerts at any time with &ldquo;!alerts test&rdquo;.
+The alert will have the name &ldquo;Test Alert, please ignore&rdquo;.
+If <i>rarity</i> is given,
+a test alert for the given rarity is sent.
+Otherwise, a test alert at God rarity is shown.
+For example, to test alerts for Mythical cards, use
+&ldquo;!alerts test mythical&rdquo;.
+</p>
+<h3 id="!alerts-config">Configuring streamlabs alerts (!alerts config)</h3>
+<p id="p168"><span class="pn"><a href="#p168">[168]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!alerts config <i>name</i> <i>value</i></kbd>
+</p>
+<p id="p169"><span class="pn"><a href="#p169">[169]</a></span>
+This command can be used to customize some aspects of the alerts.
+After making changes, you can test them immediately with !alerts test.
+</p>
+<h4 id="!alerts-config-channel">Streamlabs alert channel (!alerts config alertChannel)</h4>
+<p id="p170"><span class="pn"><a href="#p170">[170]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!alerts config alertChannel {donation | host | subscription | follow}</kbd>
+</p>
+<p id="p171"><span class="pn"><a href="#p171">[171]</a></span>
+This command sets the &ldquo;channel&rdquo; through which alerts will be sent.
+The alerts will not be shown unless you also enable the corresponding
+alert channel in Streamlabs.
+If you have never changed this, the default is &ldquo;donation&rdquo;.
+<b>
+If testing alerts sent from Streamlabs work,
+but not testing alerts sent from the bot,
+try changing this setting to &ldquo;follow&rdquo;.
+</b>
+For example, to change to the &ldquo;subscription&rdquo; channel:
+<kbd>!alerts config alertChannel subscription</kbd>
+</p>
+<h4 id="alerts-sounds">Streamlabs sound options</h4>
+<p id="p172"><span class="pn"><a href="#p172">[172]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!alerts config defaultSound <i>URL</i></kbd>
+<br>
+<kbd>!alerts config rarity<i>Num</i>Sound <i>URL</i></kbd>
+</p>
+<p id="p173"><span class="pn"><a href="#p173">[173]</a></span>
+When an alert is shown, a sound effect will also be played.
+For alerts when cards are drawn, the sound effect will be the one
+configured as rarity<i>Num</i>Sound;
+if rarity<i>Num</i>Sound has never been changed,
+then the defaultSound plays instead.
+If the defaultSound has never been changed,
+<a
+  href="https://uploads.twitchalerts.com/000/048/712/659/MMMYeaNoireShort.ogg">the
+  infamous Noire scream</a>
+plays.
+<!--
+.PS
+down
+box "rarity\fINum\fRSound" width 1.25 height 0.75
+arrow "not configured"
+box "defaultSound" width 1.25
+arrow "not configured"
+box "Noire scream" width 1.25
+.PE
+-->
+</p>
+<p id="p174"><span class="pn"><a href="#p174">[174]</a></span>
+<b>
+The default sound must be a direct link to a music file.
+The music file must be in the OGG format.
+YouTube links and other kinds of music files will not work.
+</b>
+</p>
+<p id="p175"><span class="pn"><a href="#p175">[175]</a></span>
+You can upload OGG files directly in Streamlabs' Media Gallery for the
+Alert Box widget.
+The Media Gallery is on the page for the Alert Box widget;
+you may need to scroll down and search for it.
+After uploading, hover over the filename in the Media Gallery and click
+&ldquo;Copy URL&rdquo;.
+</p>
+<p id="p176"><span class="pn"><a href="#p176">[176]</a></span>
+The following values of <i>Num</i>
+can be used:
+</p>
+<table>
+  <tr><th>Num</th><th>Rarity Name</th></tr>
+  <tr><td>4</td><td>Ultra</td></tr>
+  <tr><td>5</td><td>Legendary</td></tr>
+  <tr><td>6</td><td>Mythical</td></tr>
+  <tr><td>7</td><td>God</td></tr>
+</table>
+<p id="p177"><span class="pn"><a href="#p177">[177]</a></span>
+For example, to change the sound effect for God cards being drawn:
+<br>
+<kbd>!alerts config rarity7Sound
+  https://xorhash.bitbucket.io/nepbot/nepdoc/godsound.ogg</kbd>
+</p>
+<p id="p178"><span class="pn"><a href="#p178">[178]</a></span>
+The volume of the sounds can be adjusted in two ways.
+Either you change the sound file itself to be less loud and follow the
+steps above; or you can change the volume of the alert channel.
+If you want to just use the default Noire scream,
+your only option is to
+<b>change the volume</b>.
+In order to do so:
+</p>
+<ol>
+  <li>navigate to the Streamlabs dashboard;</li>
+  <li>open the &ldquo;Widgets&rdquo; menu on the left;</li>
+  <li>click the &ldquo;Alert Box&rdquo; option;</li>
+  <li>scroll down on that page and select the applicable alert channel,</li>
+  as a reminder, by default, the alert channel is &ldquo;Donations&rdquo;;</li>
+  <li>adjust the volume on the &ldquo;Sound Volume&rdquo; slider;</li>
+  <li>click &ldquo;Save Settings&rdquo;.</li>
+</ol>
+<h4 id="alerts-duration">Streamlabs alert duration options</h4>
+<p id="p179"><span class="pn"><a href="#p179">[179]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!alerts config defaultLength <i>length</i></kbd>
+<br>
+<kbd>!alerts config rarity<i>Num</i>Length <i>length</i></kbd>
+</p>
+<p id="p180"><span class="pn"><a href="#p180">[180]</a></span>
+This setting specifies the time in milliseconds for which the alert
+will be visible.
+It is recommended that this is set to the length of the sound effect
+plus 1500&nbsp;to 3000&nbsp;milliseconds.
+If rarity<i>Num</i>Length has never been changed,
+then the defaultLength is used instead.
+If the defaultLength has never been changed,
+the alert is shown for 14000&nbsp;milliseconds.
+The same values for <i>Num</i> as with the sound options can be used.
+</p>
+<h4 id="!alerts-config-color">Streamlabs alert text color (!alerts config color)</h4>
+<p id="p181"><span class="pn"><a href="#p181">[181]</a></span>
+<b>Synopsis</b>:&nbsp;<kbd>!alerts config color {default | rarity}</kbd>
+</p>
+<p id="p182"><span class="pn"><a href="#p182">[182]</a></span>
+This setting changes the text color for alerts.
+If set to &ldquo;default&rdquo;, the rarity and name of the player who pulled the
+card in the alerts will be shown in the color configured for alerts in
+the Streamlabs dashboard.
+If set to &ldquo;rarity&rdquo;, the rarity and name of the player who pulled the
+card in the alert to be the rarity's representative color instead.
+If you have never changed this setting, it is set to &ldquo;default&rdquo;.
+<div class="dead">
+<h1 id="anniversary-2019">The 2019 anniversary event</h1>
+<p id="p182a"><span class="pn"><a href="#p182a">[182a]</a></span>
+During August 1, 2019 and August 31, 2019 (UTC),
+the 2019 anniversary event takes place.
+During the event, so-called <b>event tokens</b> can be acquired.
+Event tokens can be exchanged for various special rewards.
+</p>
+<p id="p182b"><span class="pn"><a href="#p182b">[182b]</a></span>
+Event tokens are acquired by opening packs.
+Every pack has a chance to contain anniversary tokens.
+The chance is approximately 20% of a token per pack.
+However, <b>anniversary</b> packs have a vastly higher chance to contain
+tokens than regular packs.
+If a pack contains a token, it is shown in the booster,
+but immediately transferred to your account;
+there is thus no danger of accidentally getting rid of an event token.
+Packs may be trashed normally to no adverse effect with regards to event tokens.
+</p>
+<p id="p182c"><span class="pn"><a href="#p182c">[182c]</a></span>
+Opening anniversary packs contributes to a pack tracker.
+As certain amounts of anniversary packs are opened by the community,
+certain rewards are given to the community as a whole.
+It is unknown what those rewards are unless the conditions are met.
+</p>
+<p id="p182d"><span class="pn"><a href="#p182d">[182d]</a></span>
+Event tokens show up in your hand, but take no hand space.
+They cannot be disenchanted.
+Similarly, they are not transferable or tradeable.
+</p>
+</div> <!-- class=dead TODO move past 182e -->
+<p id="p182e"><span class="pn"><a href="#p182e">[182e]</a></span>
+The following rewards in exchange for tokens are available:
+</p>
+<table>
+  <tr><th>Item</th><th>Token Cost</th><th>Notes</th></tr>
+  <tr><td>Previous Promo</td><td>10+</td><td>Cost starts at 10&nbsp;tokens and then doubles for every Promo bought; maximum five&nbsp;Promos per person</td></tr>
+  <tr><td>Custom Special</td><td>25</td><td>Maximum one&nbsp;Special per person</td></tr>
+  <tr><td>Hand space upgrade</td><td>40</td><td>Maximum one&nbsp;hand space upgrade per person</td></tr>
+  <tr><td>Token gacha</td><td>1 per roll</td><td>Only available after the event has ended (Sep&nbsp;1 through Sep&nbsp;7)</td></tr>
+</table>
+<p id="p182f"><span class="pn"><a href="#p182f">[182f]</a></span>
+For how to exchange your tokens for prizes, see <a href="#p95a">&para;&para;&nbsp;95a et seqq.</a>
+</p>
+<h1 id="communism">Points distribution</h1>
+<p id="p183"><span class="pn"><a href="#p183">[183]</a></span>
+NepNepBot regularly distributes some amount of points to people who are
+in a channel with it.
+No chatting is actually required to get passive points.
+The points gain seems to be 5&nbsp;points every 5&nbsp;minutes.
+If sitting in a channel that is currently streaming on Twitch <em>and</em>
+having sent at least one line in chat, the points gain may increase up
+to 15&nbsp;points per 5&nbsp;minutes plus the multiplier on that value.
+The multiplier value appears to be 1.0.
+The 15&nbsp;points decrease by 1 until the base 5&nbsp;points for every
+5&nbsp;minutes of inactivity.
+NepNepBot commands count as activity.
+Users whose names contains &ldquo;bot&rdquo; anywhere cannot get an activity
+bonus.
+</p>
+<p id="p184"><span class="pn"><a href="#p184">[184]</a></span>
+<b>
+Using bots to profit from this mechanic automatically is not permitted.
+</b>
+However, it is possible to permanently idle in a channel and gain the
+regular amount of points.
+This amounts to 1440&nbsp;points per day or 43,200 points per 30&nbsp;days.
+<h1 id="irregular-rarities">Cards of irregular rarity</h1>
+<p id="p185"><span class="pn"><a href="#p185">[185]</a></span>
+There are two kinds of cards of &ldquo;irregular&rdquo; rarity:
+Promo and Special.
+Of those, Promo cards are most commonly released to the entire
+playerbase,
+whereas Special cards are generally reserved for individual players or
+very small groups.
+Neither of them take up any space in your hand.
+<h2 id="promos">Promo cards</h2>
+<p id="p186"><span class="pn"><a href="#p186">[186]</a></span>
+Promo cards are usually obtainable under various special conditions.
+It is only possible to trade a Promo card for another Promo card.
+The first type are <b>event Promos</b>:
+They are available for the duration of a specific event through redeem
+codes.
+This happened during the second HDNMarathon, for example.
+</p>
+<p id="p187"><span class="pn"><a href="#p187">[187]</a></span>
+Then there are <b>time-limited Promos</b>:
+These are cards that enter the game as regular cards and can be pulled
+normally.
+Time-limited Promos normally have a rarity of Legendary.
+Currently, the &ldquo;Summer Edition&rdquo; cards are one such case;
+they will leave after August 31.
+A special case of these are the so-called &ldquo;chans&rdquo;.
+They're cards that are personifications of things, such as
+[6496]&nbsp;Earth-Chan or [7585]&nbsp;Discord.
+A chan turns Promo two weeks after its introduction.
+</p>
+<p id="p188"><span class="pn"><a href="#p188">[188]</a></span>
+Finally, there are <b>weighted time-limited Promos</b>:
+These are cards that enter the game as regular cards and can be pulled
+normally,
+but they also have increased weighting, i.e. are more likely to be
+pulled.
+This happened for the Valentine's Day event.
+<h2 id="specials">Special cards</h2>
+<p id="p189"><span class="pn"><a href="#p189">[189]</a></span>
+A few players have cards of Special rarity.
+These cards are unique.
+</p>
+<p id="p190"><span class="pn"><a href="#p190">[190]</a></span>
+They used to be given out to cornerstones of the community.
+Those are marked as &ldquo;special thanks&rdquo;.
+However, &ldquo;special thanks&rdquo; Special cards no longer occur.
+Similarly, high amounts of dedication to a franchise could sometimes
+yield a Special card.
+However, requirements have spiked lately:
+Only truly extraordinary achievements &ndash; such as amassing
+one&nbsp;million&nbsp;points &ndash; still award a Special card these days.
+Some cards were given out as reference to some in-joke;
+those are marked with &ldquo;(meme)&rdquo;.
+</p>
+<p id="p191"><span class="pn"><a href="#p191">[191]</a></span>
+Anyone can get a Special card by sending a postcard to Marenthyu or
+meeting up with him.
+Sending a postcard allows the sender to pick a custom name and image,
+but the series will be locked to &ldquo;Postcard Collector&rdquo;.
+Meeting up with Marenthyu will yield a &ldquo;The Truth&rdquo; card.
+<h1 id="pulling-algorithm">Pulling algorithm</h1>
+<p id="p192"><span class="pn"><a href="#p192">[192]</a></span>
+This section outlines the algorithm that guards what cards are pulled
+from the deck when opening a booster pack.
+<h2 id="pulling-algorithm-concepts">Core concepts</h2>
+<p id="p193"><span class="pn"><a href="#p193">[193]</a></span>
+There are two random number generators (RNGs) involved.
+One is the &ldquo;Python&rdquo; random number generator (Python RNG);
+I call it that because it's the random number generator that is used in
+the Python programming language, which the bot is written in.
+The Python RNG is a Mersenne Twister.
+The other is the &ldquo;MySQL&rdquo; random number generator (MySQL RNG) or just
+&ldquo;RAND()&rdquo;;
+I call it that because it's the random number generator that is used in
+the MySQL database, which is the software used for the database where
+the bot stores its data.
+Both will be used in different ways.
+</p>
+<p id="p194"><span class="pn"><a href="#p194">[194]</a></span>
+Every pack has a list of &ldquo;upgrade chances&rdquo;.
+These are the literal odds that a rarity is upgraded to the next one.
+<b>
+These chances differ for every pack.
+</b>
+The upgrade chances are normally increased by the pity system.
+However, packs that are neither listed in <kbd>!booster list</kbd> nor able to be
+bought do not contribute to pity and do not use pity-boosted odds;
+one such booster pack type would be the meme pack.
+For example, an <b>imaginary</b>
+test booster pack may have the following odds:
+1, 1, 0.5, 0.5, 0.25, 0.1, 0.01.
+This means a Common is guaranteed to be upgraded to an Uncommon (1),
+an Uncommon is guaranteed to be upgraded to a Rare (1),
+a Rare has a 50% chance of being upgraded to a Super (0.5),
+a Super has a 50% chance of being upgraded to an Ultra (0.5),
+an Ultra has a 25% chance of being upgraded to a Legendary (0.25),
+a Legendary has a 10% chance of being upgraded to a Mythical (0.1),
+a Mythical has a 1% chance of being upgraded to a Mythical (0.01).
+The likelihood to reach an Ultra exactly is thus 0.1875.
+<!--
+.EQ
+P sub Ultra = 1 cdot 1 cdot 0.5 cdot 0.5 cdot (1 - 0.25) =
+0.1875
+.EN
+-->
+<h2 id="pulling-algorithm-cards">Pulling the cards</h2>
+<p id="p195"><span class="pn"><a href="#p195">[195]</a></span>
+Before anything else,
+the maximum number of event tokens (like anniversary tokens) in a pack
+is taken.
+For each possible event token,
+the Python RNG is rolled for the chance of a token.
+Every token obtained reduces the number of actual cards in the pack.
+</p>
+<p id="p196"><span class="pn"><a href="#p196">[196]</a></span>
+After this, the actual cards are pulled.
+The first step is always to perturb the state of the Python RNG (it is
+&ldquo;reseeded&rdquo;) using data from the underlying operating system on the
+server it runs on;
+this makes it infeasible to manipulate the Python RNG effectively.
+In a second step, the rarity is determined:
+For every rarity until God, a number is rolled;
+if the number is less than the upgrade chance, the rarity is upgraded.
+However, if the rarity determined contains no droppable waifus &ndash; as
+occasionally happens with cards of God rarity &ndash;,
+the rarity is silently downgraded by one.
+After this, the Python RNG is reseeded again.
+The card that is pulled <em>within</em> the rarity is determined by the MySQL
+RNG,
+which also uses the card weighting.
+The list of cards that the MySQL RNG can pulled is limited in three ways:
+</p>
+<ol>
+  <!-- <li>cards at drop limit cannot be pulled,</li> -->
+  <li>players cannot pull cards that they themselves own at God rarity, and</li>
+  <li>a card that has already been pulled in the current pack cannot be pulled
+  again.</li>
+</ol>
+<p id="p197"><span class="pn"><a href="#p197">[197]</a></span>
+Finally, the pity data is updated for all rarities that are above the
+card's rarity.
+Note how
+<b>pity is updated after every card</b>,
+which means that it is possible to cross the pity threshold in the
+middle of a pack.
+Because the packs are not pulled in waifu ID order, it is impossible to tell
+how many cards were pulled before a pity pull.
+<h2 id="pulling-algorithm-pity">Pity</h2>
+<p id="p198"><span class="pn"><a href="#p198">[198]</a></span>
+Pity values increase the odds of a certain rarity dropping.
+After crossing a certain amount of pity value,
+pulling a card of the respective rarity is guaranteed.
+Each pity value is increased by the number of cost per card.
+This means that in a pack that costs 5000&nbsp;points and contains 3&nbsp;cards,
+the affected pity values would be updated with
+5000/3&nbsp;=&nbsp;1666.666&hellip;
+The number of cards is the effective number of cards;
+meaning that the number of cards for the purpose of calculating the cost
+per card is reduced by the number of tokens:
+Had the example pack with 3&nbsp;cards contained an event token,
+it would instead be updated with (per card)
+5000/2&nbsp;=&nbsp;2500.
+</p>
+<p id="p199"><span class="pn"><a href="#p199">[199]</a></span>
+The pity thresholds are as follows:
+<table>
+  <tr><th>Rarity</th><th>Threshold</th></tr>
+  <tr><td>Super</td><td>2000 points</td></tr>
+  <tr><td>Ultra</td><td>10,000 points</td></tr>
+  <tr><td>Legendary</td><td>25,000 points</td></tr>
+  <tr><td>Mythical</td><td>100,000 points</td></tr>
+  <tr><td>God</td><td>(does not exist)</td></tr>
+</table>
+<h2 id="pulling-algorithm-weighting">Weighting</h2>
+<p id="p200"><span class="pn"><a href="#p200">[200]</a></span>
+In addition to pity aiding individual players reach each rarity,
+there's a weighting system that is meant to ensure that every card is
+pulled eventually.
+Every 24&nbsp;hours, the weighting of a card goes up slightly,
+making it more likely to be pulled.
+When a card is pulled, the weighting is reset.
+Weighting for cards of Super rarity and above is boosted.
+If a card of Super rarity and above drops twice in one&nbsp;day,
+it gets an additional penalty to prevent it from dropping again for two
+days.
+<h1 id="meta">Meta</h1>
+<p id="p201"><span class="pn"><a href="#p201">[201]</a></span>
+This section contains details about how the bot itself is managed and
+details about how the community is organized.
+<h2 id="arg">Alternate reality game (ARG)</h2>
+<p id="p202"><span class="pn"><a href="#p202">[202]</a></span>
+Marenthyu operates an alternate reality game (ARG) in tandem with the
+Waifu TCG.
+Participation will yield Special cards and badges.
+Further details about joining and the current state of the ARG can be
+found at
+<a href="https://xorhash.bitbucket.io/nepbot/arg/">my page about the ARG</a>.
+</p>
+<p id="p203"><span class="pn"><a href="#p203">[203]</a></span>
+The ARG is an <em>optional</em> part of the Waifu TCG experience.
+<!--  Invalidated by NewSysDump: -->
+<!-- You cannot obtain core game rewards, such as cards of regular rarities -->
+<!-- (Common&ndash;God) or hand space upgrades from participating. -->
+<h2 id="get-rich-quick">Community promise</h2>
+<p id="p204"><span class="pn"><a href="#p204">[204]</a></span>
+No form of microtransactions will ever be introduced into the game.
+This includes bits, subscribing to certain channels, donations or any
+other forms of real life funds transfers.
+The game will be free to play as long as it exists.
+</p>
+<h2 id="postcards">Postcards</h2>
+<p id="p205"><span class="pn"><a href="#p205">[205]</a></span>
+Sending a postcard to Marenthyu grants you the ability to create a
+Special card of your choice.
+Marenthyu may void this at his discretion.
+Meeting with any TCG administrator in person will yield a badge called
+Miku's Mercy.
+In order to obtain Marenthyu's address and details on how to proceed,
+see the pinned messages in #rules in the Waifu&nbsp;TCG Discord
+server.
+</p>
+<p id="p206"><span class="pn"><a href="#p206">[206]</a></span>
+Miku's Mercy allows the holder to undo any disenchant performed by the
+holder.
+&ldquo;Conditions apply&rdquo;, but it is unknown what those conditions are,
+exactly.
+<h1 id="historical-sections">Historical sections</h1>
+<p id="p207"><span class="pn"><a href="#p207">[207]</a></span>
+<p class="note">
+These sections are now irrelevant because they concerned time-limited
+events.
+However, for the sake of accuracy and historical preservation,
+these sections got moved here.
+</p>
+<h2 id="anniversary-2018">The 2018 anniversary event</h2>
+<p id="p208"><span class="pn"><a href="#p208">[208]</a></span>
+During all of August 2018, there was an anniversary event.
+While the event lasts,
+periodic point gain was increased by a factor of&nbsp;1.2 and
+any pack can contain so-called event tokens.
+Event tokens were non-transferrable and have no points value.
+One event token would take the place of one card in a booster pack;
+the token was added to your account immediately after opening the pack
+and cannot be trashed.
+There was no guarantee that any booster pack would actually contain an
+event token.
+Event tokens could be exchanged during 48&nbsp;hours after the anniversary
+event ends; rewards were:
+</p>
+<ol>
+  <li>one gacha roll for one&nbsp;token;</li>
+  <li>one copy of a single, pre-existing Promo card at the cost of</li>
+  three&nbsp;tokens (full list available at: <a
+   href="https://pastebin.com/ciz3BxVx">https://pastebin.com/ciz3BxVx</a>);</li>
+  <li>one custom Special card at the cost of six&nbsp;tokens; only one Special
+  card per player;</li>
+  <li>one additional hand space at the cost of ten&nbsp;tokens; only one
+  additional hand space per player.</li>
+</ol>
+<p id="p209"><span class="pn"><a href="#p209">[209]</a></span>
+The gacha rewards were divided into five tiers.
+First, the tier is picked.
+After that, a reward is picked from the tier.
+When rolling the gacha with !tokengacha,
+you could thus get:
+</p>
+<table>
+  <tr><th>Tier</th><th>Possible Rewards</th></tr>
+  <tr><td>1</td><td>super booster pack, 40 pudding, 800 points</td></tr>
+  <tr><td>2</td><td>halfmeme booster pack, 80 pudding, 1600 points, freeultra</td></tr>
+  <tr><td>3</td><td>premium booster pack, 120 pudding, 2400 points</td></tr>
+  <tr><td>4</td><td>ultimate booster pack, 200 pudding, 4000 points, freelegendary</td></tr>
+  <tr><td>5</td><td>(unknown)</td></tr>
+</table>
+<p id="p210"><span class="pn"><a href="#p210">[210]</a></span>
+Moreover, there were anniversary booster packs.
+They cost 4000&nbsp;points, contain seven&nbsp;cards and only contained cards
+of Rare rarity or above.
+They have a higher chance of containing event tokens as well as HDN
+Marathon Victory cards.
+A &ldquo;zfresh&rdquo; card was obtainable only from anniversary packs.
+<b>
+The &ldquo;zfresh&rdquo; card must not be traded or otherwise transferred &ndash;
+even just temporarily.
+If it is transferred, the card will be taken away.
+</b>
+</main>
+</body>
+</html>
