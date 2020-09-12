@@ -297,6 +297,17 @@ promotion.
 This only affects card creation date and legacy status,
 but is otherwise just a technicality.
 </p>
+<p id="p10a"><span class="pn"><a href="#p10a">[10a]</a></span>
+Every card has a creation date and time (creation timestamp).
+The creation timestamp indicates the date and time when a card was
+created.
+A card is created either from spawning in a booster pack,
+from being generated due to a promotion or
+from a bounty being filled.
+Since a bounty causes the creation of a new card with a new timestamp,
+trading is the only way to preserve the &ldquo;legacy&rdquo;
+creation time of existing cards.
+</p>
 <p id="p11"><span class="pn"><a href="#p11">[11]</a></span>
 Removing a card from play is called <b>disenchanting</b>
 or <b>de</b> for short.
@@ -1173,7 +1184,7 @@ you could thus get:
 </p>
 <table>
   <tr><th>Tier</th><th>Possible Rewards</th></tr>
-  <tr><td>1</td><td>super booster pack, 40 pudding, 800 points</td></tr>
+  <tr><td>1</td><td>2&times; standard booster pack, 20 pudding, 400 points</td></tr>
   <tr><td>2</td><td>super booster pack, 40 pudding, 800 points</td></tr>
   <tr><td>3</td><td>halfmeme booster pack, 80 pudding, 1600 points, freeultra</td></tr>
   <tr><td>4</td><td>premium booster pack, 120 pudding, 2400 points</td></tr>
@@ -2035,8 +2046,9 @@ If set to &ldquo;rarity&rdquo;, the rarity and name of the player who pulled the
 card in the alert to be the rarity's representative color instead.
 If you have never changed this setting, it is set to &ldquo;default&rdquo;.
 <h1 id="anniversary-2019">The 2019 and 2020 anniversary events</h1>
+<div class="dead">
 <p id="p182a"><span class="pn"><a href="#p182a">[182a]</a></span>
-During August 12, 2020 through September 17, 2020,
+During August 12, 2020 through September 17, 2020 (UTC),
 the yearly anniversary event takes place,
 effectively a carbon copy of last year's during August 1, 2019 and
 August 31, 2019 (UTC).
@@ -2060,6 +2072,7 @@ As certain amounts of anniversary packs are opened by the community,
 certain rewards are given to the community as a whole.
 It is unknown what those rewards are unless the conditions are met.
 </p>
+</div>
 <p id="p182d"><span class="pn"><a href="#p182d">[182d]</a></span>
 Event tokens show up in your hand, but take no hand space.
 They cannot be disenchanted.
@@ -2083,12 +2096,12 @@ For how to exchange your tokens for prizes, see <a href="#p95a">&para;&para;&nbs
 NepNepBot regularly distributes some amount of points to people who are
 in a channel with it.
 No chatting is actually required to get passive points.
-The points gain seems to be 5&nbsp;points every 5&nbsp;minutes.
+The points gain seems to be 10&nbsp;points every 5&nbsp;minutes.
 If sitting in a channel that is currently streaming on Twitch <em>and</em>
 having sent at least one line in chat, the points gain may increase up
-to 15&nbsp;points per 5&nbsp;minutes plus the multiplier on that value.
+to 20&nbsp;points per 5&nbsp;minutes plus the multiplier on that value.
 The multiplier value appears to be 1.0.
-The 15&nbsp;points decrease by 1 until the base 5&nbsp;points for every
+The 20&nbsp;points decrease by 1 until the base 10&nbsp;points for every
 5&nbsp;minutes of inactivity.
 NepNepBot commands count as activity.
 Users whose names contains &ldquo;bot&rdquo; anywhere cannot get an activity
